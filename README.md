@@ -11,8 +11,8 @@ If you want to get an impression, watch this [Youtubevideo](https://youtu.be/pTH
 The plugin runs on your system, but can also be run on my server, to find no excuse that you can't hit anything with the plugin.
 If you are interested, please contact me over [Steam](https://steamcommunity.com/id/dietze_). 
 
-If you want to support me, you can donate me something over [Paypal](http://paypal.me/DietzMarcel) or over 
-[Tradeoffers](http://steamcommunity.com/tradeoffer/new/?partner=296799755&token=W4Bv5kSS)
+If you want to support me, you can send me something via [Paypal](http://paypal.me/DietzMarcel) or a 
+[Tradeoffers](http://steamcommunity.com/tradeoffer/new/?partner=296799755&token=W4Bv5kSS) via Steam
 
 ![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/master/public/picture/overview.PNG)
 
