@@ -21,7 +21,7 @@ If you want to support me, you can send me something via [Paypal](http://paypal.
 
 ## Install
 
-* Clone the [project](https://github.com/Dietze1595/Faceitplugin), otherwise click the [Download Zip](https://github.com/Dietze1595/Faceitplugin/archive/master.zip) button and extract the file
+* Clone the [project](https://github.com/Dietze1595/Faceitplugin), otherwise click the [Download Zip](https://github.com/Dietze1595/Faceitplugin/archive/FaceitOverlay.zip) button and extract the file
 * copy-paste the file gamestate_integration_overlay.cfg in your csgo cfg folder 
 > steamapps/common/Counter-Strike Globaloffensive/csgo/cfg/
 * Install Node.JS [Nodejs.org](https://nodejs.org/en/download/)
