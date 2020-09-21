@@ -14,7 +14,7 @@ If you are interested, please contact me over [Steam](https://steamcommunity.com
 If you want to support me, you can send me something via [Paypal](http://paypal.me/DietzMarcel) or a 
 [Tradeoffers](http://steamcommunity.com/tradeoffer/new/?partner=296799755&token=W4Bv5kSS) via Steam
 
-![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/master/public/picture/overview.PNG)
+![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/FaceitOverlay/public/picture/picture.PNG)
 
 
 
@@ -46,5 +46,5 @@ If you want to support me, you can send me something via [Paypal](http://paypal.
 
 * Doubleclick the start.bat file on your Desktop and leave it in the background open
 * Open the following link on your webbrowser or implement the URL in your OBS screen
-> http://127.0.0.1:3001/169 or http://127.0.0.1:3001/43 for the resolution of your circle
+> http://127.0.0.1:3001/Overlay for the resolution of your circle
 
