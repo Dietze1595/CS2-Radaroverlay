@@ -4,11 +4,8 @@
 
 Hey, I'm Marcel Dietz, the developer of this FaceIt stream plug-in.
 The plug-in shows your live matchstats, as well as those of your teammates.
-Additionally the last FaceIt statistics of the last 20 games are displayed every 10 seconds.
-The plugins layout is designed to be placed over the radar, which protects you from streamsniping. (You can choose the resoltution of your circle between 16:9 and 4:3).
-If you want to get an impression, watch this [Youtubevideo](https://youtu.be/pTHZYc1WQpM). 
 
-The plugin runs on your system, but can also be run on my server, to find no excuse that you can't hit anything with the plugin.
+The plugin runs on your system.
 If you are interested, please contact me over [Steam](https://steamcommunity.com/id/dietze_). 
 
 If you want to support me, you can send me something via [Paypal](http://paypal.me/DietzMarcel) or a 
