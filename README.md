@@ -14,7 +14,11 @@ If you are interested, please contact me over [Steam](https://steamcommunity.com
 If you want to support me, you can send me something via [Paypal](http://paypal.me/DietzMarcel) or a 
 [Tradeoffers](http://steamcommunity.com/tradeoffer/new/?partner=296799755&token=W4Bv5kSS) via Steam
 
-![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/master/public/picture/overview.PNG)
+I have two Overlays, one to cover the radar, and 2. a simple information about the Faceitmatch.
+You can chose these two Radars over the branch on Github.
+
+![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/master/public/picture/overview.PNG) 
+![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/FaceitOverlay/public/picture/picture.PNG)
 
 
 
