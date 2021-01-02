@@ -1,0 +1,25 @@
+{
+  "name": "Radaroverlay",
+  "version": "1.0.1",
+  "description": "I am Radaroverlay for CSGO from Dietze_",
+  "main": "index.js",
+  "scripts": {
+	  "start": "node start.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "socket.io": "^3.0.4",
+  },
+  "engines": {
+    "node": "7.10.x"
+  },
+  "repository": {
+    "url": "dietze1595.github.io/faceitplugin/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "express"
+  ]
+}
