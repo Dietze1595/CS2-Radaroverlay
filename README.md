@@ -40,9 +40,6 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 * open your commandwindow, an type the following lines
   * cd \where\you\extracted\the\zip\Faceitplugin
   * npm install
-  * npm install express
-  * npm install axios
-  * npm install socket.io
 * Go to the following path: 
 > \where\you\extracted\the\zip\Faceitplugin\Desktop
 * Make a shortcut of the start.bat file to your desktop
