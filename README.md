@@ -39,6 +39,7 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 > var Bearertoken="12345678-abcdefghi-9876-54321",
 * open your commandwindow, an type the following lines
   * cd \where\you\extracted\the\zip\Faceitplugin
+  * npm install
   * npm install axios
   * npm install express
   * npm install socket.io
