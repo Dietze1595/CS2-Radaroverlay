@@ -8,12 +8,6 @@ Additionally the last FaceIt statistics of the last 20 games are displayed every
 The plugins layout is designed to be placed over the radar, which protects you from streamsniping. (You can choose the resoltution of your circle between 16:9 and 4:3).
 If you want to get an impression, watch this [Youtubevideo](https://youtu.be/pTHZYc1WQpM). 
 
-The plugin runs on your system, but can also be run on my server, to find no excuse that you can't hit anything with the plugin.
-If you are interested, please contact me over [Steam](https://steamcommunity.com/id/dietze_). 
-
-If you want to support me, you can send me something via [Paypal](http://paypal.me/DietzMarcel) or a 
-[Tradeoffers](http://steamcommunity.com/tradeoffer/new/?partner=296799755&token=W4Bv5kSS) via Steam
-
 I have two Overlays, one to cover the radar, and 2. a simple information about the Faceitmatch.
 You can chose these two Radars over the branch on Github.
 The Radaroverlay is called Master, the information over the faceitmatch is called FaceitOverlay
