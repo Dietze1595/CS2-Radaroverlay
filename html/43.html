@@ -22,7 +22,7 @@
 <body>
 
 	<div class="page hidden">
-		<div class="c100 p0 big green" style="width: 480px; height:360px">
+		<div class="c100 p0 big green" id="circlesmall" style="width: 480px; height:360px; border: 5px solid black; border-radius: 50%; overflow: hidden;">
 			<div class="slice">
 				<div class="bar"></div>
 				<div class="fill"></div>
@@ -362,6 +362,11 @@
 							}
 
 
+							if(json.playersteam!=json.mysteam){
+								document.getElementById("circlesmall").style.borderRadius = "0%";
+							}else{
+								document.getElementById("circlesmall").style.borderRadius = "50%";							
+							}
 
 							var kd = 0;
 							var kdlength = 1;
