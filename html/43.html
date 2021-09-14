@@ -15,18 +15,13 @@
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
-	<!-- styles for this little demo page -->
-	<link rel="stylesheet" href="css/circle43.css">
+	<link rel="stylesheet" href="css/basic.css">
 </head>
 
 <body>
 
 	<div class="page hidden">
-		<div class="c100 p0 big green" id="circlesmall" style="width: 480px; height:360px; border: 5px solid black; border-radius: 50%; overflow: hidden;">
-			<div class="slice">
-				<div class="bar"></div>
-				<div class="fill"></div>
-			</div>
+		<div class="main circle">
 			
 			<div class="loader visible" style="z-index:1; overflow: hidden;"> 
 				<span class="b b1" style="border-radius: 50%"/>
@@ -39,7 +34,7 @@
 				<div class="b b1" style="border-radius: 50%"/>		
 			</div>  -->
 			
-			<div class="tablepage collapse" style="vertical-align: right; z-index:1; position: inherit; left: 0%; color: white">
+			<div class="tablepage collapse" style="vertical-align: right; z-index:1; left: 0%; color: white; position: absolute; top: -9px">
 				<p style="font-size:0.5em"> </p>
 				<table align="center" style="font-size:0.07em; width:100%; font-weight: bold">
 					<tbody>
@@ -53,7 +48,7 @@
 								<img id="profilepicture"
 									src="https://assets.faceit-cdn.net/avatars/62d12eaa-b0a6-4f8e-a1b9-c0c742d95cb1_1550907994989.jpg"
 									style="width:7.5%; -webkit-border-radius: 200px">
-								<span id="username" style="font-size:1.2em"></span>
+								<span id="username" style="font-size:12px; vertical-align: middle; padding-left: 8px;"></span>
 							</td>
 						</tr>
 						<tr style="height: 11px">
@@ -62,8 +57,8 @@
 								<img id="flag"
 									src="https://cdn-frontend.faceit.com/web/112-1536332382/src/app/assets/images-compress/flags/DE.png"
 									style="width:40%; display:block; float:right"></td>
-							<td style="text-align:right; width:25%; font-size:0.9em">Elo:</td>
-							<td style="text-align:left; width:25%; font-size:0.9em"><span id="playerElo"></span>
+							<td style="text-align:right; width:25%; font-size:10px">Elo:</td>
+							<td style="text-align:left; width:25%; font-size:10px"><span id="playerElo"></span>
 							</td>
 							<td style="vertical-align:bottom; width:15%"><img id="skill_level_icon"
 									src="https://cdn-frontend.faceit.com/web/960/src/app/assets/images-compress/skill-icons/skill_level_6_svg.svg"
@@ -76,24 +71,24 @@
 					<tbody>
 						<tr>
 							<td style="width:10%"></td>
-							<td style="width:15%; text-align:right; font-size:0.7em">Wins:</td>
-							<td style="width:9%; text-align:right; font-size:0.7em"><span id="playerWins">125</span>
+							<td style="width:15%; text-align:right; font-size:10px">Wins:</td>
+							<td style="width:9%; text-align:right; font-size:10px"><span id="playerWins">125</span>
 							</td>
-							<td style="width:2%; text-align:center; font-size:0.7em">/</td>
-							<td style="width:9%; text-align:left; font-size:0.7em"><span id="playerGames">250</span>
+							<td style="width:2%; text-align:center; font-size:10px">/</td>
+							<td style="width:9%; text-align:left; font-size:10px"><span id="playerGames">250</span>
 							</td>
-							<td style="width:30%; text-align:right; font-size:0.7em">Winstreak:</td>
-							<td style="width:6.5%; text-align:right; font-size:0.7em"><span
+							<td style="width:30%; text-align:right; font-size:10px">Winstreak:</td>
+							<td style="width:6.5%; text-align:right; font-size:10px"><span
 									id="playerCurrentWinstreak">2</span></td>
-							<td style="width:2%; text-align:center; font-size:0.7em">/</td>
-							<td style="width:6.5%; text-align:left; font-size:0.7em"><span
+							<td style="width:2%; text-align:center; font-size:10px">/</td>
+							<td style="width:6.5%; text-align:left; font-size:10px"><span
 									id="playerLongestWinstreak">8</span></td>
 							<td style="width:10%"></td>
 						</tr>
 						<tr>
 							<td colspan="10"
 								style="text-align:center; width:100%; height: 10px; padding-bottom: 0px">
-								<hr style="width:95%; text-align:center" />
+								<hr style="width:95%; text-align:center; margin: 5px auto;" />
 							</td>
 						</tr>
 					</tbody>
@@ -103,44 +98,44 @@
 				<table align="center" style="font-size:0.07em; width:100%; font-weight: bold">
 					<tbody>
 						<tr class="Faceit collapse">
-							<td colspan="7" style="text-align:center; font-size:0.95em; color:#cccccc;text-decoration:underline"><span style="color: #ffff">Faceit Roomstats</span></td>
+							<td colspan="7" style="text-align:center; font-size:10px; color:#cccccc;text-decoration:underline"><span style="color: #ffff">Faceit Roomstats</span></td>
 						</tr>
 						<tr class="MM visible">
-							<td colspan="7" style="text-align:center; font-size:0.8em"> - </td>
+							<td colspan="7" style="text-align:center; font-size:10px"> - </td>
 						</tr>
 						<tr class="Faceit collapse">
 							<td style="width:1%"></td>
-							<td colspan="2" style="text-align:center; width:49%; font-size:0.8em"><span
+							<td colspan="2" style="text-align:center; width:49%; font-size:10px"><span
 									style="color: #ffff" id="playerOwnTeamName"></span></td>
-							<td style="text-align:center; width:5%; font-size:0.7em"><span>VS</span></td>
-							<td colspan="2" style="text-align:center; width:49%; font-size:0.8em"><span
+							<td style="text-align:center; width:5%; font-size:10px"><span>VS</span></td>
+							<td colspan="2" style="text-align:center; width:49%; font-size:10px"><span
 									style="color: #ffff" id="playerEnemyTeam"></span></td>
 							<td style="width:1%"></td>
 						</tr>
 						</tr>
 						<tr class="MM visible">
-							<td colspan="7" style="text-align:center; font-size:0.9em"> You're not playing an offical Faceitmatch</td>
+							<td colspan="7" style="text-align:center; font-size:10px"> You're not playing an offical Faceitmatch</td>
 						</tr>
 						<tr class="Faceit collapse">
 							<td style="width:1%"></td>
-							<td style="text-align:center; width:42.5%; font-size:0.8em"><span style="color: #ffff">Avg. Elo:</span><span
+							<td style="text-align:center; width:42.5%; font-size:10px"><span style="color: #ffff">Avg. Elo:</span><span
 									style="color: #ffff" id="ownTeamAvgElo"></span></td>
-							<td style="text-align:right; width:5%; font-size:0.8em; color:green"><span
+							<td style="text-align:right; width:5%; font-size:10px; color:green"><span
 									id="plusElo">45</span></td>
 							<td style="width:7.5%; text-align:center"><img src="picture/updown1.png"
 									style="width:100%; display:block"></td>
-							<td style="text-align:left; width:5%; font-size:0.8em; color:red"><span
+							<td style="text-align:left; width:5%; font-size:10px; color:red"><span
 									 id="minusElo">5</span></td>
-							<td style="text-align:center; width:42.5%;  font-size:0.8em"><span style="color: #ffff">Avg. Elo:</span><span
+							<td style="text-align:center; width:42.5%;  font-size:10px"><span style="color: #ffff">Avg. Elo:</span><span
 									style="color: #ffff" id="enemyTeamAvgElo"></span></td>
 							<td style="width:1%"></td>
 						</tr>
 						<tr class="MM visible">
-							<td colspan="7" style="text-align:center; width:98%; font-size:0.8em"> - </td>
+							<td colspan="7" style="text-align:center; width:98%; font-size:10px"> - </td>
 						</tr>
 						<tr>
 							<td colspan="7" style="text-align:center; width:100%; height: 25px">
-								<hr style="width:90%; text-align:center" />
+								<hr style="width:90%; text-align:center; margin: 5px auto;" />
 							</td>
 						</tr>
 					</tbody>
@@ -153,25 +148,25 @@
 							<table align="center" style="font-size:0.07em; width:100%; font-weight:bold">
 								<tbody>
 									<tr>
-										<td colspan="7" style="text-align:center; font-size:0.7em"><u>Current Matchstats</u></td>
+										<td colspan="7" style="text-align:center; font-size:10px"><u>Current Matchstats</u></td>
 									</tr>
 									<tr>
-										<td style="text-align:center; font-size:0.7em">Kills</td>
-										<td style="text-align:center; font-size:0.7em">Assists</td>
-										<td style="text-align:center; font-size:0.7em">Deaths</td>
-										<td style="text-align:center; font-size:0.7em">MVPs</td>
-										<td style="text-align:center; font-size:0.7em">Score</td>
+										<td style="text-align:center; font-size:10px">Kills</td>
+										<td style="text-align:center; font-size:10px">Assists</td>
+										<td style="text-align:center; font-size:10px">Deaths</td>
+										<td style="text-align:center; font-size:10px">MVPs</td>
+										<td style="text-align:center; font-size:10px">Score</td>
 									</tr>
 									<tr>
-										<td style="text-align:center; font-size:0.7em"><span id="playerKills"></span>
+										<td style="text-align:center; font-size:10px"><span id="playerKills"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="playerAssists"></span>
+										<td style="text-align:center; font-size:10px"><span id="playerAssists"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="playerDeaths"></span>
+										<td style="text-align:center; font-size:10px"><span id="playerDeaths"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="playerMVPs"></span>
+										<td style="text-align:center; font-size:10px"><span id="playerMVPs"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="playerScore"></span>
+										<td style="text-align:center; font-size:10px"><span id="playerScore"></span>
 										</td>
 									</tr>
 								</tbody>
@@ -214,22 +209,22 @@
 							<table align="center" style="font-size:0.07em; width:100%; font-weight:bold">
 								<tbody>
 									<tr>
-										<td colspan="6" style="text-align:center; font-size:0.7em"><u>Last 20 Matchstats</u></td>
+										<td colspan="6" style="text-align:center; font-size:10px"><u>Last 20 Matchstats</u></td>
 									</tr>
 									<tr>
-										<td style="text-align:center; font-size:0.7em">Kills</td>
-										<td style="text-align:center; font-size:0.7em">HS %</td>
-										<td style="text-align:center; font-size:0.7em">K/D</td>
-										<td style="text-align:center; font-size:0.7em">K/R</td>
+										<td style="text-align:center; font-size:10px">Kills</td>
+										<td style="text-align:center; font-size:10px">HS %</td>
+										<td style="text-align:center; font-size:10px">K/D</td>
+										<td style="text-align:center; font-size:10px">K/R</td>
 									</tr>
 									<tr>
-										<td style="text-align:center; font-size:0.7em"><span id="player20Kills"></span>
+										<td style="text-align:center; font-size:10px"><span id="player20Kills"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="player20HS"></span>
+										<td style="text-align:center; font-size:10px"><span id="player20HS"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="player20KD"></span>
+										<td style="text-align:center; font-size:10px"><span id="player20KD"></span>
 										</td>
-										<td style="text-align:center; font-size:0.7em"><span id="player20KR"></span>
+										<td style="text-align:center; font-size:10px"><span id="player20KR"></span>
 										</td>
 									</tr>
 								</tbody>
@@ -243,7 +238,7 @@
 					<span class="dot"></span> 
 				</div>
 			</div>
-		</div>
+		</div>		
 		
 		<script>
 			var slideIndex = 0;
@@ -360,13 +355,15 @@
 								$("#death5").addClass("visible");
 								$("#death5").removeClass("hidden");
 							}
-
-
+							
 							if(json.playersteam!=json.mysteam){
-								document.getElementById("circlesmall").style.borderRadius = "0%";
+								$(".main").addClass("square");
+								$(".main").removeClass("circle");
 							}else{
-								document.getElementById("circlesmall").style.borderRadius = "50%";							
+								$(".main").addClass("circle");
+								$(".main").removeClass("square");							
 							}
+							
 
 							var kd = 0;
 							var kdlength = 1;
@@ -384,6 +381,15 @@
 					}
 				} else {}
 			});
+		</script>
+		<script>
+		function Update () {
+		 if(Input.GetButton("Fire1"))
+		 {
+		 testNumber += 1;
+		 }
+		 testText.text = "" + testNumber;
+		 } 
 		</script>
 	</div>
 
