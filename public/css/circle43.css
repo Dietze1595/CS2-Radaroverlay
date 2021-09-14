@@ -41,7 +41,7 @@
   border-radius: 50%;
   float: left;
   margin: 0 0.1em 0.1em 0;
-  background-color: #000000;
+  background-color: #2b2b2b;
 }
 .c100 *, .c100 *:before, .c100 *:after {
   -webkit-box-sizing: content-box;
@@ -52,21 +52,6 @@
   font-size: 240px;
 }
 
-.c100:after {
-  position: absolute;
-  top: 0.02em;
-  left: 0.03em;
-  display: block;
-  content: " ";
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-  background-color: #1f1f1f;
-  width: 466.67px;
-  height: 350px;
-}
 .c100 .slice {
   position: absolute;
   width: 1em;
