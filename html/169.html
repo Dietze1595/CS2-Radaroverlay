@@ -329,8 +329,12 @@
 
 							if(json.bomb=='defused'){
 								$(".progress").addClass("green");
+								$(".circular").addClass("visible");
+								$(".circular").removeClass("hidden");
 							}else{
-								$(".progress").removeClass("green");						
+								$(".progress").removeClass("green");
+								$(".circular").addClass("hidden");
+								$(".circular").removeClass("visible");							
 							}
 							
 							document.getElementById("playerKills").innerHTML = json.kills;
