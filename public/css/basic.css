@@ -15,8 +15,8 @@
 	width: 270px; 
 	height:270px; 
 	position: absolute;
-    top: 70px;
-    left: 20px;
+        top: 70px;
+        left: 20px;
 	display: block;
   }
 
@@ -39,6 +39,7 @@
 
   .circle .bar .progress.green{
 	background: green!important;
+	animation: none;
   }
 
   .circle .left .progress{
