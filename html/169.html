@@ -387,14 +387,6 @@
 								$("#death5").removeClass("hidden");
 							}
 
-							if(json.playersteam!=json.mysteam){
-								$(".main").addClass("square");
-								$(".main").removeClass("circle");
-							}else{
-								$(".main").addClass("circle");
-								$(".main").removeClass("square");							
-							}
-
 							var kd = 0;
 							var kdlength = 1;
 							if (json.deaths === 0 && json.kills === 0) {
