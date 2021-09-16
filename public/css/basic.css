@@ -1,4 +1,82 @@
+.circular{
+	width: 270px; 
+	height:270px; 
+	position: absolute;
+    top: 70px;
+    left: 20px;
+	display: none;
+  }
+  .circular.visible{
+	display: block!important;
+  }
+  
+
+  .circular.green{
+	width: 270px; 
+	height:270px; 
+	position: absolute;
+    top: 70px;
+    left: 20px;
+	display: block;
+  }
+
+  .circular .bar{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: #fff;
+	-webkit-border-radius: 100%;
+	clip: rect(0px, 270px, 270px, 135px);
+  }
+  .circle .bar .progress{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	-webkit-border-radius: 100%;
+	clip: rect(0px, 135px, 270px, 0px);
+	background: red;
+  }
+
+  .circle .bar .progress.green{
+	background: green!important;
+  }
+
+  .circle .left .progress{
+	z-index:1;
+	animation: left 20s linear both;
+  }  
+  .circle.green .left .progress{
+	z-index:1;
+  }
+  @keyframes left{
+	100%{
+	  transform: rotate(180deg);
+	}
+  }
+  .circle .right {
+	transform: rotate(180deg);
+	z-index:3;
+   
+  }
+  .circle .right .progress{
+	animation: right 20s linear both;
+	animation-delay:20s;
+  }
+  @keyframes right{
+	100%{
+	  transform: rotate(180deg);
+	}
+  }
+
+
+
+
+
+
+
+
 .main.circle{
+	z-index: 10;
 	position: relative;
 	width: 382px; 
 	height:275px; 
@@ -11,6 +89,7 @@
 }
 
 .main.circle#normal{
+	z-index: 10;
 	position: relative;
 	width: 260px; 
 	height:260px; 
@@ -24,6 +103,7 @@
 }
 
 .main.square{	
+	z-index: 10;
 	position: absolute;
 	width: 425px; 
 	height:310px; 
@@ -34,7 +114,8 @@
     left: 12px;	
 }
 
-.main.square#normal{	
+.main.square#normal{
+	z-index: 10;	
 	position: absolute;
 	width: 285px; 
 	height:285px; 
@@ -88,7 +169,7 @@ hr{
 }
 
 .visible {
-	visibility: visible;
+	visibility: visible!important;
 	opacity: 1;
 	transition: opacity 2s linear;
 }
