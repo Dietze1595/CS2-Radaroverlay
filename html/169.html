@@ -22,6 +22,17 @@
 <body>
 
 	<div class="page hidden">
+		<div class="circular">
+			<div class="circle">
+			  <div class="bar left">
+				<div class="progress"></div>
+			  </div>
+			  <div class="bar right">
+				<div class="progress"></div>
+			  </div>
+			</div>
+		  </div>
+
 		<div class="main circle" id="normal">
 			<div class="slice">
 				<div class="bar"></div>
@@ -244,6 +255,9 @@
 				</div>
 			</div>
 		</div>
+
+
+
 		
 		<script>
 			var slideIndex = 0;
@@ -305,7 +319,19 @@
 							$(".loader").removeClass("visible");
 							$(".loader").addClass("collapse");
 							
-							
+							if(json.bomb=='planted'){
+								$(".circular").addClass("visible");
+								$(".circular").removeClass("hidden");
+							}else{
+								$(".circular").addClass("hidden");
+								$(".circular").removeClass("visible");						
+							}
+
+							if(json.bomb=='defused'){
+								$(".progress").addClass("green");
+							}else{
+								$(".progress").removeClass("green");						
+							}
 							
 							document.getElementById("playerKills").innerHTML = json.kills;
 							document.getElementById("playerAssists").innerHTML = json.assists;
