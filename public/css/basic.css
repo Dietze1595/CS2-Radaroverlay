@@ -1,80 +1,12 @@
-.circular{
-	width: 270px; 
-	height:270px; 
-	position: absolute;
-    top: 70px;
-    left: 20px;
-	display: none;
-  }
-  .circular.visible{
-	display: block!important;
-  }
-  
 
-  .circular.green{
-	width: 270px; 
-	height:270px; 
-	position: absolute;
-        top: 70px;
-        left: 20px;
-	display: block;
-  }
+.circle span{
+	font-size: 12px;
+}
 
-  .circular .bar{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	background: #fff;
-	-webkit-border-radius: 100%;
-	clip: rect(0px, 270px, 270px, 135px);
-  }
-  .circle .bar .progress{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	-webkit-border-radius: 100%;
-	clip: rect(0px, 135px, 270px, 0px);
-	background: red;
-  }
-
-  .circle .bar .progress.green{
-	background: green!important;
-	animation: none;
-  }
-
-  .circle .left .progress{
-	z-index:1;
-	animation: left 20s linear both;
-  }  
-  .circle.green .left .progress{
-	z-index:1;
-  }
-  @keyframes left{
-	100%{
-	  transform: rotate(180deg);
-	}
-  }
-  .circle .right {
-	transform: rotate(180deg);
-	z-index:3;
-   
-  }
-  .circle .right .progress{
-	animation: right 20s linear both;
-	animation-delay:20s;
-  }
-  @keyframes right{
-	100%{
-	  transform: rotate(180deg);
-	}
-  }
-
-
-
-
-
-
-
+.square span{
+	font-size: 14px;
+}
+	
 
 .main.circle{
 	z-index: 10;
@@ -89,20 +21,6 @@
     left: 35px;
 }
 
-.main.circle#normal{
-	z-index: 10;
-	position: relative;
-	width: 260px; 
-	height:260px; 
-	border: 5px solid black;
-	overflow: hidden;
-	background-color: #2b2b2b;
-	border-radius: 50%;
-    top: 75px;
-    left: 25px;
-
-}
-
 .main.square{	
 	z-index: 10;
 	position: absolute;
@@ -115,27 +33,167 @@
     left: 12px;	
 }
 
-.main.square#normal{
-	z-index: 10;	
-	position: absolute;
-	width: 285px; 
-	height:285px; 
-	border: 5px solid black;
-	overflow: hidden;
-	background-color: #2b2b2b;
-    top: 60px;
-    left: 12px;	
+.faceitImg{
+	width: 25%;
+    padding-top: 15px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-td{
-	padding: 0px;
+.user{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-hr{
-	margin: 5px;
+img#profilepicture {
+    display: block;
+    width: 7.5%;
+    border-radius: 50%;
+	padding-right: 8px;
 }
 
+span#username{
+    vertical-align: middle;
+    font-weight: bold;
+}
 
+.faceitGeneral{
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.flag{
+	display: block;
+    width: 7.5%;
+}
+
+.Elo{
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.skill{
+	display: block;
+    width: 7.5%;
+}
+
+.FaceitWins{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 1px solid #969696;
+    padding-bottom: 10px;
+}
+
+.wins {
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.FaceitRoomStats{
+	display: grid;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    border-bottom: 1px solid #969696;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.MMRoomStats{
+	display: grid;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    border-bottom: 1px solid #969696;
+    padding-bottom: 10px;
+    padding-top: 5px;
+	
+}
+
+.RoomHeadline{
+	text-decoration: underline;
+}
+
+.RoomName{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.TeamName{	
+	width: 150px;
+}
+
+.RoomElo{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.TeamElo{
+	width: 150px;
+}
+
+span#plusElo{
+	color: green;
+}
+
+.PlusMinus{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+}
+
+span#minusElo{
+	color: red;
+}
+
+.arrowImg{
+	position: relative;
+    height: 10px;
+}
+
+.MatchStatsHeadline{
+	font-size: 12px;
+    vertical-align: middle;
+    font-weight: bold;
+    text-align: center;
+    text-decoration-line: underline;
+}
+
+.square .MatchStatsHeadline{
+	font-size: 14px;
+}
+
+.tableText{
+	text-align: center;
+    font-size: 10px!important;
+}
+
+.square .tableText{
+    font-size: 12px!important;
+}
+
+.deathSkull{
+	display: block;
+	width: 12px;
+	height: 12px;
+}
+
+.deathSkull.hidden{
+	display: none!important;
+}
 
 
 .progress {
@@ -185,10 +243,12 @@ hr{
 	visibility: collapse;
 	opacity: 0;
 	transition: visibility 0s 2s, opacity 2s linear;
+    display: none;
 }
 
 /* Basisfunktionalität des Sliders */
 .slider {
+    padding-top: 5px;
 	overflow: hidden;
 }
 
@@ -213,7 +273,9 @@ hr{
 	overflow: hidden;
 }
 
-.slide {
+.slide {	
+    padding-left: 7%;
+    padding-right: 7%;
 	list-style: none;
 	width: 50%; /* Breite gleich 100 / Anzahl Slides */
 	float: left;
