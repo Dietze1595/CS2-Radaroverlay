@@ -27,15 +27,14 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 * open the start.js file and add your Faceit Bearer token
   * Open the Link [developers.faceit.com](https://developers.faceit.com/apps) and create an app
   * Go to the tab API KEYS and create a new **Client Side** token
-  * Copy the token and implement the token to the start.js file under line 1
-  * It should look like this
-> var Bearertoken="12345678-abcdefghi-9876-54321",
+  * Copy the token and implement the token to the config.json file under FaceitToken
 * open your commandwindow, an type the following lines
   * cd \where\you\extracted\the\zip\Faceitplugin
   * npm install
   * npm install axios
   * npm install express
   * npm install socket.io
+  * npm install fs
 * Go to the following path: 
 > \where\you\extracted\the\zip\Faceitplugin\Desktop
 * Make a shortcut of the start.bat file to your desktop
