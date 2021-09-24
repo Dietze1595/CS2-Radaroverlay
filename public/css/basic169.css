@@ -1,0 +1,459 @@
+.circle span{
+	font-size: 10px;
+    font-weight: 600;
+}
+
+.square span{
+	font-size: 12px;
+    font-weight: 600;
+}
+
+.main.circle{
+	z-index: 10;
+	position: relative;
+	width: 260px; 
+	height:260px; 
+	border: 5px solid black;
+	overflow: hidden;
+	background-color: #2b2b2b;
+	border-radius: 50%;
+    top: 75px;
+    left: 25px;
+}
+
+
+.main.square{
+	z-index: 10;	
+	position: absolute;
+	width: 285px; 
+	height:285px; 
+	border: 5px solid black;
+	overflow: hidden;
+	background-color: #2b2b2b;
+    top: 60px;
+    left: 12px;	
+}
+
+
+.faceitImg{
+	width: 38%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.user{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+	font-weight: 12px;
+}
+
+img#profilepicture {
+    display: block;
+    width: 7.5%;
+    border-radius: 50%;
+	padding-right: 8px;
+}
+
+span#username{
+    vertical-align: middle;
+}
+
+.faceitGeneral{
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.flag{
+	display: block;
+    width: 7.5%;
+}
+
+.Elo{
+    vertical-align: middle;
+}
+
+.skill{
+	display: block;
+    width: 7.5%;
+}
+
+.FaceitWins{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 1px solid #969696;
+    padding-bottom: 10px;
+}
+
+.wins {
+    vertical-align: middle;
+}
+
+.FaceitRoomStats{
+	display: grid;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #969696;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.MMRoomStats{
+	display: grid;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #969696;
+    padding-bottom: 10px;
+    padding-top: 5px;
+	
+}
+
+.RoomHeadline{
+	vertical-align: middle;
+    font-weight: bold;
+    text-align: center;
+    text-decoration-line: underline;
+    font-size: 10px;
+}
+
+.RoomName{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.TeamName{	
+	width: 90px;
+}
+
+.RoomElo{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.TeamElo{
+	width: 90px;
+}
+
+span#plusElo{
+	color: green;
+}
+
+.PlusMinus{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+}
+
+span#minusElo{
+	color: red;
+}
+
+.arrowImg{
+	position: relative;
+    height: 10px;
+}
+
+.MatchStatsHeadline{
+	font-size: 12px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration-line: underline;
+}
+
+.square .MatchStatsHeadline{
+	font-size: 12px;
+}
+
+.tableText{
+	text-align: center;
+    font-size: 9px!important;
+    font-weight: normal;
+}
+
+.square .tableText{
+    font-size: 10px!important;
+    font-weight: normal;
+}
+
+.deathSkull{
+	display: block;
+	width: 9px;
+	height: 10px;
+}
+
+.deathSkull.hidden{
+	display: none!important;
+}
+
+
+.progress {
+	grid-area: KD-Bar;
+	position: relative;
+	height: 8px;
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 0 !important;
+}
+
+.bg-danger {
+	background-color: #2d2d2d !important;
+}
+
+.bg-success {
+	background-color: #848484 !important;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+.visible {
+	visibility: visible!important;
+	opacity: 1;
+	transition: opacity 2s linear;
+}
+
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 2s, opacity 2s linear;
+}
+
+.collapse {
+	visibility: collapse;
+	opacity: 0;
+	transition: visibility 0s 2s, opacity 2s linear;
+    display: none;
+}
+
+/* Basisfunktionalität des Sliders */
+.slider {
+    padding-top: 5px;
+	overflow: hidden;
+}
+
+.slideList {
+	width: 200%; /* Anzahl der Slides mal 100 */
+	position: relative; /* über die relative Positionierung wird der Slider durchs Sichtfenster geschoben */
+	-webkit-transition: left 2s;
+	-moz-transition: left 2s;
+	-o-transition: left 2s;
+	transition: left 2s; /* für den fließenden Schub */
+	margin: 0;
+	padding: 0;
+}
+
+.slideList:after {
+	content: ".";
+	display: block;
+	height: .1px;
+	clear: both;
+	visibility: hidden;
+	font-size: 0;
+	overflow: hidden;
+}
+
+.slide {	
+    padding-left: 7%;
+    padding-right: 7%;
+	list-style: none;
+	width: 50%; /* Breite gleich 100 / Anzahl Slides */
+	float: left;
+	position: relative;
+	overflow: hidden;
+	left: 0;
+	-webkit-transition: left 0s .5s;
+	-moz-transition: left 0s .5s;
+	-o-transition: left 0s .5s;
+	transition: left 0s .5s; /*bei Klick auf ein Control werden alle Slides wieder auf Original-Position geschoben, hier für den ersten relevant. Damit die Aktion erst nach der slides-Verschiebung beginnt, kommt ein delay hinzu*/
+}
+
+@keyframes slider {
+	0%, 40% {left: 0;}
+	50%, 90% {left: -100%;}
+	100% {left: 0%;}
+}
+
+.slideList {
+	animation-name: slider;
+	animation-duration: 20s;
+	animation-delay: 2s;
+	animation-iteration-count: infinite;
+	overflow: hidden;
+}
+
+.slide {
+	position: relative;
+}
+
+
+.loader {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+} 
+
+.loader .b{
+	border-radius: 50%;
+	border-left: 3px solid;
+	border-right: 3px solid;
+	border-top: 3px solid transparent !important;
+	border-bottom: 3px solid transparent !important;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	animation: ro 2s infinite;
+}
+
+.loader .b1{
+	height: 50px;
+	width: 50px;
+	border-color: #535353;
+}
+.loader .b2{
+	height: 40px;
+	width: 40px;
+	border-color: #7e7e7e;
+	animation-delay: 0.2s;
+}
+
+.loader .b3{
+	height: 30px;
+	width: 30px;
+	border-color: #cdcdcd;
+	animation-delay: 0.4s;
+}
+
+.loader .b4{
+	height: 20px;
+	width: 20px;
+	border-color: #ffffff;
+	animation-delay: 0.6s;
+} 
+
+
+
+@keyframes ro{
+	0%{
+		transform: translate(-50%,-50%) rotate(0deg);
+	}
+	50%{
+		transform: translate(-50%,-50%) rotate(-180deg);
+	}
+	100%{
+		transform: translate(-50%,-50%) rotate(0deg);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Bombtimer */
+.circular{
+	width: 270px; 
+	height:270px; 
+	position: absolute;
+    top: 70px;
+    left: 20px;
+	display: none;
+  }
+  .circular.visible{
+	display: block!important;
+  }
+  
+
+  .circular.green{
+	width: 270px; 
+	height:270px; 
+	position: absolute;
+    top: 70px;
+    left: 20px;
+	display: block;
+  }
+
+  .circular .bar{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: #fff;
+	-webkit-border-radius: 100%;
+	clip: rect(0px, 270px, 270px, 135px);
+  }
+  .circle .bar .progress{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	-webkit-border-radius: 100%;
+	clip: rect(0px, 135px, 270px, 0px);
+	background: red;
+  }
+
+  .circle .bar .progress.green{
+	background: green!important;
+  }
+
+  .circle .left .progress{
+	z-index:1;
+	animation: left 20s linear both;
+  }  
+  .circle.green .left .progress{
+	z-index:1;
+  }
+  
+  @keyframes left{
+	100%{
+	  transform: rotate(180deg);
+	}
+  }
+  .circle .right {
+	transform: rotate(180deg);
+	z-index:3;
+   
+  }
+  
+  .circle .right .progress{
+	animation: right 20s linear both;
+	animation-delay:20s;
+  }
+  
+  @keyframes right{
+	100%{
+	  transform: rotate(180deg);
+	}
+  }
