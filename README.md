@@ -20,7 +20,7 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 
 ## Install
 
-* Clone the [project (Radar)](https://github.com/Dietze1595/Faceitplugin), [FaceitOverlay](https://github.com/Dietze1595/Faceitplugin/tree/FaceitOverlay) , otherwise click the [Download Zip (Radar)](https://github.com/Dietze1595/Faceitplugin/archive/master.zip), [FaceitOverlayy](https://github.com/Dietze1595/Faceitplugin/archive/FaceitOverlay.zip) button and extract the file
+* Clone the [project (Radar)](https://github.com/Dietze1595/Faceitplugin) or click the [Download Zip (Radar)](https://github.com/Dietze1595/Faceitplugin/archive/master.zip), [FaceitOverlayy](https://github.com/Dietze1595/Faceitplugin/archive/FaceitOverlay.zip) button and extract the file
 * copy-paste the file gamestate_integration_overlay.cfg in your csgo cfg folder 
 > steamapps/common/Counter-Strike Globaloffensive/csgo/cfg/
 * Install Node.JS [Nodejs.org](https://nodejs.org/en/download/)
