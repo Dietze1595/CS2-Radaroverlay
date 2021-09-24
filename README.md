@@ -13,7 +13,6 @@ You can chose these two Radars over the branch on Github.
 The Radaroverlay is called Master, the information over the faceitmatch is called FaceitOverlay
 
 ![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/master/public/picture/overview.PNG) 
-![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/FaceitOverlay/public/picture/picture.PNG)
 
 
 
