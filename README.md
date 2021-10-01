@@ -24,10 +24,10 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 > steamapps/common/Counter-Strike Globaloffensive/csgo/cfg/
 * Install Node.JS [Nodejs.org](https://nodejs.org/en/download/)
   * Check the box in the installation, **NPM is included**
-* open the start.js file and add your Faceit Bearer token
+* open the config.json file and add your Faceit Bearer token
   * Open the Link [developers.faceit.com](https://developers.faceit.com/apps) and create an app
   * Go to the tab API KEYS and create a new **Client Side** token
-  * Copy the token and implement the token to the config.json file under FaceitToken
+  * Copy the token and implement the token to the config.json file
 * open your commandwindow, an type the following lines
   * cd \where\you\extracted\the\zip\Faceitplugin
   * npm install
