@@ -1,5 +1,5 @@
 .circle span{
-	font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
 }
 
@@ -11,13 +11,13 @@
 .main.circle{
 	z-index: 10;
 	position: relative;
-	width: 260px; 
-	height:260px; 
+	width: 258px; 
+	height:258px; 
 	overflow: hidden;
 	background-color: #2b2b2b;
 	border-radius: 50%;
-    top: 75px;
-    left: 25px;
+    top: 76.5px;
+    left: 21px;
     border: 3px solid black;
 	transition: border-radius 0.5s;
 }
@@ -36,37 +36,30 @@
 	transition: border-radius 0.5s;
 }
 
-
-.faceitImg{
-	width: 38%;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
 .user{
 	display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-	font-weight: 12px;
+    padding-top: 10px;
 }
 
 img#profilepicture {
     display: block;
-    width: 7.5%;
+    width: 9.5%;
     border-radius: 50%;
 	padding-right: 8px;
 }
 
 span#username{
     vertical-align: middle;
+	font-size: 14px;
 }
 
 .faceitGeneral{
 	display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-direction: row;
 }
 
@@ -168,7 +161,7 @@ span#minusElo{
 }
 
 .MatchStatsHeadline{
-	font-size: 11px;
+	font-size: 10px;
     vertical-align: middle;
     text-align: center;
     text-decoration-line: underline;
@@ -388,11 +381,11 @@ span#minusElo{
 
 /* Bombtimer */
 .circular{
-    width: 265px;
-    height: 265px;
+	width: 261px;
+    height: 263px;
     position: absolute;
-    top: 73px;
-    left: 23px;
+    top: 73.5px;
+    left: 19px;
 	display: none;
   }
   .circular.visible{
@@ -410,11 +403,11 @@ span#minusElo{
   }
 
   .circular .bar{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	-webkit-border-radius: 100%;
-	clip: rect(0px, 265px, 265px, 132px);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    -webkit-border-radius: 100%;
+    clip: rect(0px, 263px, 263px, 130px);
   }
   .circle .bar .progress{
 	position: absolute;
@@ -422,7 +415,7 @@ span#minusElo{
 	width: 100%;
 	-webkit-border-radius: 100%;
 	clip: rect(0px, 132px, 265px, 0px);
-	background: red;
+	background: rgb(51, 0, 0);
   }
 
   .circle .bar .progress.green{
