@@ -46,7 +46,6 @@
 			</div> 
 						
 			<div class="tablepage collapse" style="color: white;">
-				<img class="faceitImg" src="picture/faceit.png">
 				<div class="user">
 					<img id="profilepicture" src="https://assets.faceit-cdn.net/avatars/62d12eaa-b0a6-4f8e-a1b9-c0c742d95cb1_1550907994989.jpg">
 					<span id="username"></span>
@@ -240,15 +239,15 @@
 						if (json.kills === undefined) {
 						} else {
 							if (json.gamename === "Faceit") {
-								$(".Faceit").addClass("visible");
-								$(".Faceit").removeClass("collapse");
-								$(".MM").addClass("collapse");
-								$(".MM").removeClass("visible");
+								$(".FaceitRoomStats").addClass("visible");
+								$(".FaceitRoomStats").removeClass("collapse");
+								$(".MMRoomStats").addClass("collapse");
+								$(".MMRoomStats").removeClass("visible");
 							} else {
-								$(".Faceit").addClass("collapse");
-								$(".Faceit").removeClass("visible");
-								$(".MM").addClass("visible");
-								$(".MM").removeClass("collapse");
+								$(".FaceitRoomStats").addClass("collapse");
+								$(".FaceitRoomStats").removeClass("visible");
+								$(".MMRoomStats").addClass("visible");
+								$(".MMRoomStats").removeClass("collapse");
 							}
 							
 							$(".tablepage").removeClass("collapse");
