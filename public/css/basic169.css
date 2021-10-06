@@ -397,16 +397,6 @@ span#minusElo{
 	display: block!important;
   }
   
-
-  .circular.green{
-	width: 270px; 
-	height:270px; 
-	position: absolute;
-    top: 70px;
-    left: 20px;
-	display: block;
-  }
-
   .circular .bar{
     position: absolute;
     height: 100%;
@@ -425,6 +415,14 @@ span#minusElo{
 
   .circle .bar .progress.green{
 	background: green!important;
+  }
+    .circle .left .progress.green{
+	z-index:1;
+	animation: left 0.5s linear both;
+  } 
+    .circle .right .progress.green{
+	animation: right 0.5s linear both;
+	animation-delay:0.5s;
   }
 
   .circle .left .progress{
