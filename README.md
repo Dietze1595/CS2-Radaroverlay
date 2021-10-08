@@ -39,5 +39,6 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 
 * Doubleclick the start.bat file on your Desktop and leave it in the background open
 * Open the following link on your webbrowser or implement the URL in your OBS screen (width: 1920 height: 1080)
+* Notice: The overlay is optimized for 1920x1080 resolution as well as for 1280x960. For other resolutions you have to move the browser window and or enlarge it.
 > http://127.0.0.1:3001/169 or http://127.0.0.1:3001/43 for the resolution of your circle
 
