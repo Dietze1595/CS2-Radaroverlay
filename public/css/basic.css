@@ -33,7 +33,8 @@
     top: 65px;
     left: 13px;	
 	transition: border-radius 0.5s;
-	animation-delay: 2s;
+    transition-delay: 2s;
+
 }
 
 .tablepage{
