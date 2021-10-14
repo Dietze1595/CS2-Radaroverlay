@@ -28,6 +28,7 @@ var requeststate,
     player20HS = 0,
     player20KD = 0,
     player20KR = 0;
+    roomId = 0;
 app.use(express.static(__dirname + "/public")),
     app.get("/", function (e, a) {
         a.sendFile(__dirname + "/html/index.html");
@@ -194,20 +195,60 @@ async function processPayload(e, a) {
             })
             .catch(function (e) {}),
             await getFaceitMatch(playerID, m).catch(function (e) {}),
+            await getLiveStats(playerID, m, roomId).catch(function (e) {}),
             returnEmpty();
     }
 }
+
+
+
+
+async function getLiveStats(e, a, roomLive) {
+    await axios
+    .get(
+		"https://api.faceit.com/match/v2/match/" + roomLive,
+	  )
+        .then(async (response) => {
+            var test = response.data.payload;
+			var ownFactionNumber = checkForValue(test.teams.faction1, a) ? 1 : 2;
+			var enemyFactionNumber = 1 == ownFactionNumber ? 2 : 1;
+
+			var ownTeamname = test.teams["faction" + ownFactionNumber].name;
+			var enemyTeamname = test.teams["faction" + enemyFactionNumber].name;
+            var playerOwnElo = 0;
+            var playerEnemyElo = 0;
+            for (let x = 0; x < test.teams["faction" + ownFactionNumber].roster.length; x++){
+                playerOwnElo += test.teams["faction" + ownFactionNumber].roster[x].elo;
+            }
+ 
+            for (let x = 0; x < test.teams["faction" + enemyFactionNumber].roster.length; x++) {
+                playerEnemyElo += test.teams["faction" + enemyFactionNumber].roster[x].elo;
+            }
+ 
+            ownTeamAVGElo =  Math.floor(playerOwnElo / test.teams["faction" + ownFactionNumber].roster.length);		  
+            enemyTeamAVGElo = Math.floor(playerEnemyElo / test.teams["faction" + enemyFactionNumber].roster.length);
+            winElo = calculateRatingChange(test.teams["faction" + ownFactionNumber].stats.winProbability, 50);
+            lossElo = 50 - winElo;
+            (gamename = "Faceit"),
+            TeamDatabase.insert({ gamename: gamename, mySteamId: a, ownTeamname: ownTeamname, enemyTeamname: enemyTeamname, ownTeamAVGElo: ownTeamAVGElo, enemyTeamAVGElo: enemyTeamAVGElo, winElo: winElo, lossElo: lossElo });
+        })
+        .catch(function (e) {});
+}
+
+
+
+
+
+
+
 async function getFaceitMatch(e, a) {
     await axios
         .get("https://api.faceit.com/match/v1/matches/groupByState", { params: { userId: e } })
         .then(async (t) => {
             if (((names = Object.getOwnPropertyNames(t.data.payload)), "VOTING" === names[0] || "READY" === names[0] || "ONGOING" === names[0])) {
-                
-		        let names = Object.getOwnPropertyNames(test.payload)
-		        roomId = response.data.payload[names[0]][0].id;  
-
-                await getRoomStats(playerID, roomId).catch(function (e) {}),
+                roomId = t.data.payload[names[0]][0].id;
                 returnEmpty();
+
             } else
                 PlayerRoster.delete("mySteamId", a),
                     PlayerRoster.delete("mySteamId", a),
@@ -219,48 +260,6 @@ async function getFaceitMatch(e, a) {
         })
         .catch(function (e) {});
 }
-
-async function getRoomStats(playerID ,roomLive) {
-	await axios
-	  .get(
-		"https://api.faceit.com/match/v2/match/" + roomLive,
-	  )
-	  .then(async response => {
-		if (response.status !== 200) {
-		  var isNull = true;
-		} else {  
-			var test = response.data.payload;
-			var ownFactionNumber = checkForValue(test.teams.faction1, userLive) ? 1 : 2;
-			var enemyFactionNumber = 1 == ownFactionNumber ? 2 : 1;
-
-			var teamname1 = test.teams["faction" + ownFactionNumber].name;
-			var teamname2 = test.teams["faction" + enemyFactionNumber].name;
-
-		   var playerOwnElo = 0;
-		   var playerEnemyElo = 0
-
-			for (let ex = 0; ex < test.teams["faction" + ownFactionNumber].roster.length; ex++){
-				playerOwnElo += test.teams["faction" + ownFactionNumber].roster[ex].elo;
-			}
-
-			for (let ex = 0; ex < test.teams["faction" + enemyFactionNumber].roster.length; ex++) {
-				playerEnemyElo += test.teams["faction" + enemyFactionNumber].roster[ex].elo;
-			}
-
-			ownTeamAVGElo =  Math.floor(playerOwnElo / test.teams["faction" + ownFactionNumber].roster.length);		  
-			enemyTeamAVGElo = Math.floor(playerEnemyElo / test.teams["faction" + enemyFactionNumber].roster.length);
-
-			winElo = calculateRatingChange(test.teams["faction" + ownFactionNumber].stats.winProbability, 50);
-			lossElo = 50 - winElo;
-
-            gamename = "Faceit";
-			TeamDatabase.insert({ gamename: gamename, mySteamId: playerID, ownTeamname: teamname1, enemyTeamname: teamname2, ownTeamAVGElo: ownTeamAVGElo, enemyTeamAVGElo: enemyTeamAVGElo, winElo: winElo, lossElo: lossElo });
-            
-		}
-	  })
-	  .catch(function(error) {console.log(error)});
-  }
-
 async function getEloFromPlayer(e) {
     await axios
         .get("https://open.faceit.com/data/v4/players/" + e, { headers: { Authorization: "Bearer " + Bearertoken } })
@@ -368,6 +367,7 @@ function calculateRatingChange(e, a) {
     var gain = Math.round(a - e * a)
     return gain;
 }
+
 function checkForValue(e, a) {
     for (let t = 0; t < e.roster.length; t++){
 		if (e.roster[t].nickname === a){
@@ -376,6 +376,7 @@ function checkForValue(e, a) {
     }
     return false;
 }
+
 function Database() {
     (this.datensatz = []),
         (this.insert = function (e) {
