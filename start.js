@@ -239,12 +239,12 @@ async function getRoomStats(playerID ,roomLive) {
 		   var playerOwnElo = 0;
 		   var playerEnemyElo = 0
 
-			for (let e = 0; e < test.teams["faction" + ownFactionNumber].roster.length; e++){
-				playerOwnElo += test.teams["faction" + ownFactionNumber].roster[e].elo;
+			for (let ex = 0; ex < test.teams["faction" + ownFactionNumber].roster.length; ex++){
+				playerOwnElo += test.teams["faction" + ownFactionNumber].roster[ex].elo;
 			}
 
-			for (let e = 0; e < test.teams["faction" + enemyFactionNumber].roster.length; e++) {
-				playerEnemyElo += test.teams["faction" + enemyFactionNumber].roster[e].elo;
+			for (let ex = 0; ex < test.teams["faction" + enemyFactionNumber].roster.length; ex++) {
+				playerEnemyElo += test.teams["faction" + enemyFactionNumber].roster[ex].elo;
 			}
 
 			ownTeamAVGElo =  Math.floor(playerOwnElo / test.teams["faction" + ownFactionNumber].roster.length);		  
