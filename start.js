@@ -370,7 +370,7 @@ function calculateRatingChange(e, a) {
 
 function checkForValue(e, a) {
     for (let t = 0; t < e.roster.length; t++){
-		if (e.roster[t].nickname === a){
+		if (e.roster[t].gameId === a){
 			return true;
 		}
     }
