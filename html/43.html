@@ -298,12 +298,19 @@
 								$("#death5").removeClass("hidden");
 							}
 							
-							if(json.playersteam==json.mysteam && json.round >= 1){								
+							var myVar;
+							if(json.playersteam==json.mysteam && json.round >= 1){	
+								 clearTimeout(myVar);
 								$(".main").addClass("circle");
 								$(".main").removeClass("square");
+								$(".main").removeClass("square");
+
 							}else{
-								$(".main").addClass("square");
-								$(".main").removeClass("circle");							
+								myVar = setTimeout(function(){ 
+									$(".main").addClass("square");
+									$(".main").removeClass("circle"); 
+								}, 2000);						
+
 							}
 							
 
