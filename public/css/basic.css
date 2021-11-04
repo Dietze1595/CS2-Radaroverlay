@@ -1,3 +1,53 @@
+.bombtimer{
+    top: 340px;
+    left: 125px;
+    position: absolute;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.bombsvg{
+    height: 50px;
+    color: red;
+    position: relative;
+}
+
+.bombsvg.green{
+    height: 50px;
+    color: green;
+    position: relative;
+}
+
+
+
+.seconds{
+    height: 50px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.digit {
+        display: inline-block;
+        height: 2rem;
+        overflow: hidden;
+        width: 1ch;
+}
+
+.digit span {
+        display: block;
+        height: 2rem;
+        width: 100%;
+}
+
+.seconds-digit-one.ongoing{
+        animation: tick6 40s step-end;
+        animation-iteration-count: infinite;
+}
+
+.seconds-digit-two.ongoing {
+    animation: tick10 10s;
+    animation-iteration-count: infinite;
+}
 
 .circle span{
 	font-size: 12px;
