@@ -227,7 +227,8 @@ async function getLiveStats(e, a, roomLive) {
  
             ownTeamAVGElo =  Math.floor(playerOwnElo / test.teams["faction" + ownFactionNumber].roster.length);		  
             enemyTeamAVGElo = Math.floor(playerEnemyElo / test.teams["faction" + enemyFactionNumber].roster.length);
-            winElo = calculateRatingChange(test.teams["faction" + ownFactionNumber].stats.winProbability, 50);
+            winElo = 50;
+	    //winElo = calculateRatingChange(test.teams["faction" + ownFactionNumber].stats.winProbability, 50);
             lossElo = 50 - winElo;
             (gamename = "Faceit"),
             TeamDatabase.insert({ gamename: gamename, mySteamId: a, ownTeamname: ownTeamname, enemyTeamname: enemyTeamname, ownTeamAVGElo: ownTeamAVGElo, enemyTeamAVGElo: enemyTeamAVGElo, winElo: winElo, lossElo: lossElo });
