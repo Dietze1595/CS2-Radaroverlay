@@ -222,7 +222,7 @@
 		<script>
 			var socket = io();
 			socket.on('test', function (json) {
-				if (json == null || json.pahse == "gameover" || json.gamestate === 0 || json.activity == "menu" || json.activity == "textinput") {
+				if (json == null || json.phase == "gameover" || json.gamestate === 0 || json.activity == "menu" || json.activity == "textinput") {
 					$(".page").removeClass("visible");
 					$(".page").addClass("hidden");
 					
