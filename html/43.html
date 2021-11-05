@@ -21,7 +21,7 @@
 <body>
 
 	<div class="page hidden">
-				<div class="bombtimer">
+		<div class="bombtimer">
 			<svg class="bombsvg" height='50px' width='50px'  fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 46 61" version="1.1" x="0px" y="0px">
 				<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 				<g transform="translate(-847.000000, -1842.000000)" fill="currentColor">
@@ -332,18 +332,14 @@
 								$("#death5").removeClass("hidden");
 							}
 							
-							var myVar;
 							if(json.playersteam==json.mysteam && json.round >= 1){	
-								 clearTimeout(myVar);
 								$(".main").addClass("circle");
 								$(".main").removeClass("square");
 								$(".main").removeClass("square");
 
 							}else{
-								myVar = setTimeout(function(){ 
-									$(".main").addClass("square");
-									$(".main").removeClass("circle"); 
-								}, 2000);						
+								$(".main").addClass("square");
+								$(".main").removeClass("circle"); 		
 
 							}
 							
