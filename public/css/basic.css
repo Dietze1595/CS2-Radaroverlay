@@ -1,29 +1,44 @@
-.bombtimer{
-    top: 340px;
-    left: 125px;
-    position: absolute;
+.bombtimer{    
+    position: relative;
     display: grid;
+    width: 100px;
+    left: 50%;
+    transform: translateX(-50%);
     grid-auto-flow: column;
+    align-items: center;
+    align-content: center;
+    background: #1d1e20;
+    height: 50px;
+    justify-content: center;
 }
 
 .bombsvg{
-    height: 50px;
+    height: 40px;
     color: red;
     position: relative;
+    transition: none!important;
 }
 
 .bombsvg.green{
-    height: 50px;
     color: green;
-    position: relative;
 }
 
 
 
 .seconds{
-    height: 50px;
-    padding-left: 25px;
+    transition: none!important;
+    height: 25px;
     position: relative;
+    color: #E2E2E2;
+    display: none;
+}
+
+.seconds.ongoing{
+    transition: block!important;
+    height: 25px;
+    position: relative;
+    color: #E2E2E2;
+    display: none;
 }
 
 .digit {
