@@ -1,5 +1,5 @@
 .bombtimer{    
-    position: relative;
+    position: absolute;
     display: grid;
     width: 100px;
     left: 50%;
