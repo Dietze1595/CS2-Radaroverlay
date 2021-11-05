@@ -92,7 +92,7 @@ async function processPayload(e, a) {
         for (i = 0; i < 5; i++) PlayerRoster.delete("mySteamId", e.provider.steamid), TeamDatabase.delete("mySteamId", e.provider.steamid);
         returnEmpty();
     } else {
-	var phase = e.round.phase;
+	var phase = e.map.phase;
         var round = e.player.state.health;
         var activity = e.player.activity;
         var bomb = e.round.bomb;
@@ -108,7 +108,7 @@ async function processPayload(e, a) {
             p = e.player.steamid;
         if (void 0 !== TeamDatabase.where("mySteamId", m)[0]) {
             if (1 === requeststate)
-                if (void 0 === PlayerRoster.where("playerSteamId", p)[0]) t = new Request(0, 0, 0, 1, 1, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0);
+                if (void 0 === PlayerRoster.where("playerSteamId", p)[0]) t = new Request(0, 0, 0, 0, 1, 1, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0);
                 else {
                     var c = TeamDatabase.where("mySteamId", m),
                         d = PlayerRoster.where("playerSteamId", p);
@@ -151,7 +151,7 @@ async function processPayload(e, a) {
                 }
             else {
                 void 0 === PlayerRoster.where("playerSteamId", p)[0] &&
-                    ((gamestate = 1), send((t = new Request(0, 0, 0, 1, 1, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0)), e, a), await getPlayerIdFromPlayer(p, m).catch(function (e) {}));
+                    ((gamestate = 1), send((t = new Request(0, 0, 0, 0, 1, 1, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0)), e, a), await getPlayerIdFromPlayer(p, m).catch(function (e) {}));
                 (c = TeamDatabase.where("mySteamId", m)), (d = PlayerRoster.where("playerSteamId", p));
                 t = new Request(
 		    phase,
@@ -411,7 +411,7 @@ function Sleep(e) {
     return new Promise((a) => setTimeout(a, e));
 }
 function returnEmpty() {
-    return new Request(0, 0, 0, 0, 0, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0);
+    return new Request(0, 0, 0, 0, 0, 0, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 http.listen(3001, function () {
     console.log("listening on *:3001");
