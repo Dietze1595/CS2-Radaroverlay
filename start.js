@@ -43,8 +43,9 @@ app.use(express.static(__dirname + "/public")),
         executeRequest(e, a).catch(function (e) {});
     });
 class Request {
-    constructor(round, activity, bomb, mysteam, playersteam, e, a, t, r, l, s, n, i, o, y, m, p, c, d, h, u, g, f, w, v, A, E, k, K, S, T, F, R) {
-        (this.round = round),
+    constructor(phase, round, activity, bomb, mysteam, playersteam, e, a, t, r, l, s, n, i, o, y, m, p, c, d, h, u, g, f, w, v, A, E, k, K, S, T, F, R) {
+            (this.phase = phase),
+	    (this.round = round),
             (this.activity = activity),
             (this.bomb = bomb),
             (this.mysteam = mysteam),
@@ -91,6 +92,7 @@ async function processPayload(e, a) {
         for (i = 0; i < 5; i++) PlayerRoster.delete("mySteamId", e.provider.steamid), TeamDatabase.delete("mySteamId", e.provider.steamid);
         returnEmpty();
     } else {
+	var phase = e.round.phase;
         var round = e.player.state.health;
         var activity = e.player.activity;
         var bomb = e.round.bomb;
@@ -111,6 +113,7 @@ async function processPayload(e, a) {
                     var c = TeamDatabase.where("mySteamId", m),
                         d = PlayerRoster.where("playerSteamId", p);
                     t = new Request(
+			phase,
                         round,
                         activity,
                         bomb,
@@ -151,6 +154,7 @@ async function processPayload(e, a) {
                     ((gamestate = 1), send((t = new Request(0, 0, 0, 1, 1, " ", 0, 0, 0, 0, 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, null, null, 0, 0, 0, 0, 0, 0, 0, 0)), e, a), await getPlayerIdFromPlayer(p, m).catch(function (e) {}));
                 (c = TeamDatabase.where("mySteamId", m)), (d = PlayerRoster.where("playerSteamId", p));
                 t = new Request(
+		    phase,
                     round,
                     activity,
                     bomb,
