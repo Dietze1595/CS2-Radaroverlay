@@ -34,11 +34,11 @@
 }
 
 .seconds.ongoing{
-    transition: block!important;
+    transition: none!important;
     height: 25px;
     position: relative;
     color: #E2E2E2;
-    display: none;
+    display: block!important;
 }
 
 .digit {
@@ -440,3 +440,27 @@ span#minusElo{
 		transform: translate(-50%,-50%) rotate(0deg);
 	}
 }
+
+
+@keyframes tick6 {
+        0%      { margin-top: 0; }
+        25%     { margin-top: -2rem;  }
+        50%     { margin-top: -4rem;  }
+	75%     { margin-top: -6rem;  }
+        100%     { margin-top: -8rem;  }
+    }
+
+@keyframes tick10 {
+        0%      { margin-top: 0; }
+        10%     { margin-top: -2rem;  }
+        20%     { margin-top: -4rem;  }
+        30%     { margin-top: -6rem;  }
+        40%     { margin-top: -8rem;  }
+        50%     { margin-top: -10rem;  }
+        60%     { margin-top: -12rem;  }
+        70%     { margin-top: -14rem;  }
+        80%     { margin-top: -16rem;  }
+        90%     { margin-top: -18rem;  }
+        100%    { margin-top: -20rem;  }
+}
+
