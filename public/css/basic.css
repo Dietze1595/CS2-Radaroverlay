@@ -21,6 +21,7 @@
 
 .bombsvg.green{
     color: green;
+    transition: none!important;
 }
 
 
