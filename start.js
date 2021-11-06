@@ -231,18 +231,14 @@ async function getLiveStats(e, a, roomLive) {
  
             ownTeamAVGElo =  Math.floor(playerOwnElo / test.teams["faction" + ownFactionNumber].roster.length);		  
             enemyTeamAVGElo = Math.floor(playerEnemyElo / test.teams["faction" + enemyFactionNumber].roster.length);
-            winElo = (test.teams["faction" + ownFactionNumber].stats.winProbability == null) ? 25 : calculateRatingChange(test.teams["faction" + ownFactionNumber].stats.winProbability, 50);
+	    winElo = 50;
+            winElo = (test.teams["faction" + ownFactionNumber].stats.winProbability == null) ? calculateRatingChangeOld(ownTeamAVGElo, enemyTeamAVGElo) : calculateRatingChange(test.teams["faction" + ownFactionNumber].stats.winProbability, 50);
             lossElo = 50 - winElo;
             (gamename = "Faceit"),
             TeamDatabase.insert({ gamename: gamename, mySteamId: a, ownTeamname: ownTeamname, enemyTeamname: enemyTeamname, ownTeamAVGElo: ownTeamAVGElo, enemyTeamAVGElo: enemyTeamAVGElo, winElo: winElo, lossElo: lossElo });
         })
         .catch(function (e) {});
 }
-
-
-
-
-
 
 
 async function getFaceitMatch(e, a) {
@@ -370,6 +366,11 @@ var matchid = "";
 function calculateRatingChange(e, a) {
     var gain = Math.round(a - e * a)
     return gain;
+}
+
+function calculateRatingChangeOld(e, a) {
+    var t, r;
+    return (r = a - e), (t = 1 / (1 + Math.pow(10, r / 400))), Math.round(50 * (1 - t));
 }
 
 function checkForValue(e, a) {
