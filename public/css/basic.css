@@ -1,70 +1,64 @@
-.bombtimer{    
-    position: absolute;
-    display: grid;
-    width: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    grid-auto-flow: column;
-    align-items: center;
-    align-content: center;
-    background: #1d1e20;
-    height: 50px;
-    justify-content: center;
-}
-
-.bombsvg{
-    height: 40px;
-    color: red;
-    position: relative;
-    transition: none!important;
-}
-
-.bombsvg.green{
-    color: green;
-    transition: none!important;
-}
-
-
-
-.seconds{
-    transition: none!important;
-    height: 25px;
-    position: relative;
-    color: #E2E2E2;
+.countdown{      
     display: none;
+    position: absolute;
+    width: 0px;
+    margin-top: 54px;
+    margin-left: 1px;
 }
 
-.seconds.ongoing{
-    transition: none!important;
-    height: 25px;
-    position: relative;
-    color: #E2E2E2;
-    display: block!important;
+.countdown.ongoing{
+    display: block;
 }
 
-.digit {
-        display: inline-block;
-        height: 2rem;
-        overflow: hidden;
-        width: 1ch;
+.bombsvg{    
+    position: absolute;
+    top: 132px;
+    left: 179px;
+    width: 40px;
+    height: 40px;
+    transform: scale(-9.5,7.2) rotateY(-180deg) rotateZ(-90deg);
 }
 
-.digit span {
-        display: block;
-        height: 2rem;
-        width: 100%;
+.countdown.ongoing .bombsvg circle{
+    stroke: red;
+    animation: countdown 40s linear forwards;
 }
 
-.seconds-digit-one.ongoing{
-        animation: tick6 40s step-end;
-        animation-iteration-count: infinite;
+.countdown.ongoing.green .bombsvg circle{
+    stroke: green;
+    animation: countdow 1s linear forwards;
 }
 
-.seconds-digit-two.ongoing {
-    animation: tick10 10s;
-    animation-iteration-count: infinite;
+.bombsvg circle{
+    stroke-dasharray: 113px;
+    stroke-dashoffset: 0px;
+    stroke-linecap: round;
+    stroke-width: 0.8px;
+    fill: none;
 }
 
+.countdown.ongoing .squarebomb{
+    background: linear-gradient(to right, red 99.99%, transparent), linear-gradient(to bottom, red 99.99%, transparent), linear-gradient(to right, red 99.99%, transparent), linear-gradient(to bottom, red 99.99%, transparent);   
+    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+    background-repeat: no-repeat;
+    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;    
+    animation: progress 40s linear forwards;
+}
+
+.countdown.ongoing.green .squarebomb{
+    background: linear-gradient(to right, green 99.99%, transparent), linear-gradient(to bottom, green 99.99%, transparent), linear-gradient(to right, green 99.99%, transparent), linear-gradient(to bottom, green 99.99%, transparent);   
+    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+    background-repeat: no-repeat;
+    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;      
+    animation: progres 1s linear forwards;
+}
+
+.squarebomb {
+    height: 288px;
+    width: 384px;
+    margin-left: 8px;
+    margin-top: 7px;
+}
 .circle span{
 	font-size: 12px;
 }
@@ -443,25 +437,58 @@ span#minusElo{
 }
 
 
-@keyframes tick6 {
-        0%      { margin-top: 0; }
-        25%     { margin-top: -2rem;  }
-        50%     { margin-top: -4rem;  }
-	75%     { margin-top: -6rem;  }
-        100%     { margin-top: -8rem;  }
-    }
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 113px;
+  }
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
 
-@keyframes tick10 {
-        0%      { margin-top: 0; }
-        10%     { margin-top: -2rem;  }
-        20%     { margin-top: -4rem;  }
-        30%     { margin-top: -6rem;  }
-        40%     { margin-top: -8rem;  }
-        50%     { margin-top: -10rem;  }
-        60%     { margin-top: -12rem;  }
-        70%     { margin-top: -14rem;  }
-        80%     { margin-top: -16rem;  }
-        90%     { margin-top: -18rem;  }
-        100%    { margin-top: -20rem;  }
+@keyframes countdow {
+  from {
+    stroke-dashoffset: 113px;
+  }
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+
+@keyframes progress {
+  0% {
+    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;
+  }
+  25% {
+    background-position: 0px 0px, 379px -288px, 384px 284px, 0px 288px;
+  }
+  50% {
+    background-position: 0px 0px, 379px 0px, 384px 284px, 0px 288px;
+  }
+  75% {
+    background-position: 0px 0px, 379px 0px, 0px 284px, 0px 288px;
+  }
+  100% {
+    background-position: 0px 0px, 379px 0px, 0px 284px, 0px 0px;
+  }
+}
+
+
+@keyframes progres {
+  0% {
+    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;
+  }
+  25% {
+    background-position: 0px 0px, 379px -288px, 384px 284px, 0px 288px;
+  }
+  50% {
+    background-position: 0px 0px, 379px 0px, 384px 284px, 0px 288px;
+  }
+  75% {
+    background-position: 0px 0px, 379px 0px, 0px 284px, 0px 288px;
+  }
+  100% {
+    background-position: 0px 0px, 379px 0px, 0px 284px, 0px 0px;
+  }
 }
 
