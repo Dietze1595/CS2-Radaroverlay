@@ -13,10 +13,10 @@
 .bombsvg{     
     position: absolute;
     top: 132px;
-    left: 180px;
+    left: 179px;
     width: 40px;
     height: 40px;
-    transform: scale(-10,7.6) rotateY(-180deg) rotateZ(-90deg);
+    transform: scale(-9.5,7.2) rotateY(-180deg) rotateZ(-90deg);
 }
 
 .countdown.ongoing .bombsvg circle{
