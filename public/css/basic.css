@@ -100,9 +100,18 @@
 	border: 5px solid black;
 	overflow: hidden;
 	background-color: #2b2b2b;
-    top: 65px;
-    left: 13px;	
+	top: 65px;
+	left: 13px;	
 	transition: border-radius 0.5s;
+}
+
+.tablepage{
+	vertical-align: right; 
+	z-index:1; 
+	left: 0%; 
+	color: #E2E2E2; 
+	position: absolute; 
+	top: -9px
 }
 
 .user{
