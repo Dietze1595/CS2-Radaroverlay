@@ -1,3 +1,65 @@
+.countdown{      
+    display: none;
+    position: absolute;
+    width: 0px;
+    margin-top: 54px;
+    margin-left: 1px;
+}
+
+.countdown.ongoing{
+    display: block;
+}
+
+.bombsvg{     
+    position: absolute;
+	top: 132px;
+    left: 129px;
+    width: 40px;
+    height: 40px;
+    transform: scale(-7.3,7.3) rotateY(-180deg) rotateZ(-90deg);
+}
+
+.countdown.ongoing .bombsvg circle{
+    stroke: #ff0000;
+    animation: countdown 40s linear forwards;
+}
+
+.countdown.ongoing.green .bombsvg circle{
+    stroke: green;
+    animation: countdow 1s linear forwards;
+}
+
+.bombsvg circle{
+    stroke-dasharray: 113px;
+    stroke-dashoffset: 0px;
+    stroke-linecap: round;
+    stroke-width: 0.8px;
+    fill: none;
+}
+
+.countdown.ongoing .squarebomb{
+    background: linear-gradient(to right, #5a0000 99.99%, transparent), linear-gradient(to bottom, #5a0000 99.99%, transparent), linear-gradient(to right, #5a0000 99.99%, transparent), linear-gradient(to bottom, #b76e02 99.99%, transparent);   
+    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+    background-repeat: no-repeat;
+    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;    
+    animation: progress 40s linear forwards;
+}
+
+.countdown.ongoing.green .squarebomb{
+    background: linear-gradient(to right, green 99.99%, transparent), linear-gradient(to bottom, green 99.99%, transparent), linear-gradient(to right, green 99.99%, transparent), linear-gradient(to bottom, green 99.99%, transparent);   
+    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+    background-repeat: no-repeat;
+    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;      
+    animation: progres 1s linear forwards;
+}
+
+.squarebomb {
+    height: 294px;
+    width: 294px;
+    margin-left: 6px;
+    margin-top: 1px;
+}
+
 .circle span{
     font-size: 11px;
     font-weight: 600;
@@ -14,7 +76,7 @@
 	width: 258px; 
 	height:258px; 
 	overflow: hidden;
-	background-color: #111214;
+	background-color: #2b2b2b;
 	border-radius: 50%;
     top: 76.5px;
     left: 21px;
@@ -30,14 +92,15 @@
 	height:285px; 
 	border: 5px solid black;
 	overflow: hidden;
-	background-color: #111214;
+	background-color: #2b2b2b;
     top: 60px;
     left: 12px;	
 	transition: border-radius 0.5s;
 }
 
 .tablepage{
-	width: 100%;     
+	top: 0%;
+	width: 100%;
 	height: 100%;
 	vertical-align: right; 
 	z-index:1; 
@@ -364,7 +427,6 @@ span#minusElo{
 } 
 
 
-
 @keyframes ro{
 	0%{
 		transform: translate(-50%,-50%) rotate(0deg);
@@ -378,85 +440,72 @@ span#minusElo{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* Bombtimer */
-.circular{
-	width: 261px;
-    height: 263px;
-    position: absolute;
-    top: 73.5px;
-    left: 19px;
-	display: none;
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 113px;
   }
-  .circular.visible{
-	display: block!important;
+  0%{
+    stroke: #5a0000;
   }
-  
-  .circular .bar{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    -webkit-border-radius: 100%;
-    clip: rect(0px, 263px, 263px, 130px);
+  74.9%{
+    stroke: #5a0000;
   }
-  .circle .bar .progress{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	-webkit-border-radius: 100%;
-	clip: rect(0px, 132px, 265px, 0px);
-	background: rgb(51, 0, 0);
+  75%{  
+    stroke: #eb6429;
   }
+  87.4%{  
+    stroke: #eb6429;
+  }
+  87.5%{  
+    stroke: #ff0000;
+  }
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
 
-  .circle .bar .progress.green{
-	background: green!important;
+@keyframes countdow {
+  from {
+    stroke-dashoffset: 113px;
   }
-    .circle .left .progress.green{
-	z-index:1;
-	animation: left 0.5s linear both;
-  } 
-    .circle .right .progress.green{
-	animation: right 0.5s linear both;
-	animation-delay:0.5s;
+  to {
+    stroke-dashoffset: 0px;
   }
+}
 
-  .circle .left .progress{
-	z-index:1;
-	animation: left 20s linear both;
-  }  
-  .circle.green .left .progress{
-	z-index:1;
+@keyframes progress {
+  0% {
+    background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px;
   }
-  
-  @keyframes left{
-	100%{
-	  transform: rotate(180deg);
-	}
+  25% {
+    background-position: 0px 0px, 290px -295px, 295px 290px, 0px 295px;
   }
-  .circle .right {
-	transform: rotate(180deg);
-	z-index:3;
-   
+  50% {
+    background-position: 0px 0px, 290px 0px, 295px 290px, 0px 295px;
   }
-  
-  .circle .right .progress{
-	animation: right 20s linear both;
-	animation-delay:20s;
+  75% {
+    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 295px;
   }
-  
-  @keyframes right{
-	100%{
-	  transform: rotate(180deg);
-	}
+  100% {
+    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 0px;
   }
+}
+
+
+@keyframes progres {
+  0% {
+    background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px;
+  }
+  25% {
+    background-position: 0px 0px, 290px -295px, 295px 290px, 0px 295px;
+  }
+  50% {
+    background-position: 0px 0px, 290px 0px, 295px 290px, 0px 295px;
+  }
+  75% {
+    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 295px;
+  }
+  100% {
+    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 0px;
+  }
+}
