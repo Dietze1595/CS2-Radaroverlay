@@ -21,22 +21,13 @@
 <body>
 
 	<div class="page hidden">
-		<div class="circular">
-			<div class="circle">
-			  <div class="bar left">
-				<div class="progress"></div>
-			  </div>
-			  <div class="bar right">
-				<div class="progress"></div>
-			  </div>
-			</div>
-		  </div>
-
+		<div class="countdown">
+		  <svg class="bombsvg">
+			<circle class="svgcircle" r="18" cx="20" cy="20"></circle>
+		  </svg>
+		  <div class="squarebomb"></div>
+		</div>
 		<div class="main circle">
-			<div class="slice">
-				<div class="bar"></div>
-				<div class="fill"></div>
-			</div>
 			
 			<div class="loader visible" style="z-index:1; overflow: hidden;"> 
 				<span class="b b1" style="border-radius: 50%"/>
@@ -44,7 +35,11 @@
 				<span class="b b3" style="border-radius: 50%"/>
 				<span class="b b4" style="border-radius: 50%"/>
 			</div> 
-						
+			
+		<!--	<div class="loader visible" style="z-index:1; overflow: hidden">
+				<div class="b b1" style="border-radius: 50%"/>		
+			</div>  -->
+			
 			<div class="tablepage collapse">
 				<div>
 					<div class="user">
@@ -191,10 +186,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-
-
-
+		</div>		
 		
 		<script>
 			var slideIndex = 0;
@@ -256,21 +248,7 @@
 							$(".loader").removeClass("visible");
 							$(".loader").addClass("collapse");
 							
-							if(json.bomb=='planted'){
-								$(".circular").addClass("visible");
-								$(".circular").removeClass("hidden");
-							}else{
-								$(".circular").addClass("hidden");
-								$(".circular").removeClass("visible");						
-							}
-
-							if(json.bomb=='defused'){
-								$(".circular").addClass("visible");
-								$(".circular").removeClass("hidden");
-								$(".progress").addClass("green");
-							}else{
-								$(".progress").removeClass("green");						
-							}
+							
 							
 							document.getElementById("playerKills").innerHTML = json.kills;
 							document.getElementById("playerAssists").innerHTML = json.assists;
@@ -325,15 +303,35 @@
 								$("#death5").addClass("visible");
 								$("#death5").removeClass("hidden");
 							}
+							
+							if(json.playersteam == json.mysteam && json.round >= 1){
+									$(".main").addClass("circle");
+									$(".main").removeClass("square");
+									$(".squarebomb").addClass("hidden");
+									$(".bombsvg").removeClass("hidden");
 
-							/*if(json.playersteam!=json.mysteam){
-								$(".main").addClass("square");
-								$(".main").removeClass("circle");
-							}else{
-								$(".main").addClass("circle");
-								$(".main").removeClass("square");							
-							} */
+							}else if(json.playersteam != json.mysteam){
+									$(".main").addClass("square");
+									$(".main").removeClass("circle"); 
+									$(".bombsvg").addClass("hidden"); 
+									$(".squarebomb").removeClass("hidden"); 
+							}	
 
+							if(json.bomb=='planted'){
+								$(".countdown").removeClass("hidden");								
+								$(".countdown").addClass("ongoing");	
+																
+							}
+							else if(json.bomb=='defused'){								
+								$(".countdown").addClass("green");
+								}
+							else{
+								$(".countdown").addClass("hidden");	
+								$(".countdown").removeClass("ongoing");	
+								$(".countdown").removeClass("green");	
+							}
+							
+							
 							var kd = 0;
 							var kdlength = 1;
 							if (json.deaths === 0 && json.kills === 0) {
@@ -350,6 +348,15 @@
 					}
 				} else {}
 			});
+		</script>
+		<script>
+		function Update () {
+		 if(Input.GetButton("Fire1"))
+		 {
+		 testNumber += 1;
+		 }
+		 testText.text = "" + testNumber;
+		 } 
 		</script>
 	</div>
 
