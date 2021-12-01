@@ -98,13 +98,21 @@
 .tablepage{
 	top: 0%;
 	width: 100%;
-	height: 100%;
+	height: calc(100% + 9px);
 	vertical-align: right; 
 	z-index:1; 
 	left: 0%; 
 	color: #E2E2E2; 
 	position: absolute; 
-	top: -9px
+	top: -9px;	
+	display: grid;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.userprofile{
+    border-bottom: 1px solid #969696;
+    padding-bottom: 5px;
 }
 
 .user{
@@ -155,8 +163,6 @@ span#username{
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    border-bottom: 1px solid #969696;
-    padding-bottom: 5px;
 }
 
 .wins {
@@ -316,9 +322,10 @@ span#minusElo{
 /* Basisfunktionalität des Sliders */
 .slider {
     padding-top: 5px;
-	overflow: hidden;
+    overflow: hidden;
     left: -5px;
     position: relative;
+    height: 91px;
 }
 
 .slideList {
