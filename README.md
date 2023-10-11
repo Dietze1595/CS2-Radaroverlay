@@ -21,7 +21,7 @@ The Radaroverlay is called Master, the information over the faceitmatch is calle
 
 * Clone the [project (Radar)](https://github.com/Dietze1595/Faceitplugin) or click the [Download Zip (Radar)](https://github.com/Dietze1595/Faceitplugin/archive/master.zip) button and extract the file
 * copy-paste the file gamestate_integration_overlay.cfg in your csgo cfg folder 
-> steamapps/common/Counter-Strike Globaloffensive/csgo/cfg/
+> \Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg
 * Install Node.JS [Nodejs.org](https://nodejs.org/en/download/)
   * Check the box in the installation, **NPM is included**
 * open the config.json file and add your Faceit Bearer token
