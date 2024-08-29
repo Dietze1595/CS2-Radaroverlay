@@ -1,9 +1,9 @@
-.countdown{      
-    display: none;
-    position: absolute;
-    width: 0px;
-    margin-top: 54px;
-    margin-left: 1px;
+.countdown {
+	display: none;
+	position: absolute;
+	width: 0px;
+	margin-top: -2px;
+	margin-left: 0px;
 }
 
 .countdown.ongoing{
@@ -12,15 +12,15 @@
 
 .bombsvg{     
     position: absolute;
-    top: 132px;
-    left: 179px;
+    top: 132.5px;
+    left: 182px;
     width: 40px;
     height: 40px;
     transform: scale(-9.5,7.2) rotateY(-180deg) rotateZ(-90deg);
 }
 
 .countdown.ongoing .bombsvg circle{
-    stroke: #ff0000;
+    stroke: ff0000;
     animation: countdown 40s linear forwards;
 }
 
@@ -37,12 +37,12 @@
     fill: none;
 }
 
-.countdown.ongoing .squarebomb{
-    background: linear-gradient(to right, #5a0000 99.99%, transparent), linear-gradient(to bottom, #5a0000 99.99%, transparent), linear-gradient(to right, #5a0000 99.99%, transparent), linear-gradient(to bottom, #b76e02 99.99%, transparent);   
-    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
-    background-repeat: no-repeat;
-    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;    
-    animation: progress 40s linear forwards;
+.countdown.ongoing .squarebomb {
+	background: linear-gradient(to right, #ff0000 99.99%, transparent), linear-gradient(to bottom, #ff0000 99.99%, transparent), linear-gradient(to right, #ff0000 99.99%, transparent), linear-gradient(to bottom, #b76e02 99.99%, transparent);
+	background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+	background-repeat: no-repeat;
+	background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;
+	animation: progress 40s linear forwards;
 }
 
 .countdown.ongoing.green .squarebomb{
@@ -56,7 +56,7 @@
 .squarebomb {
     height: 288px;
     width: 384px;
-    margin-left: 8px;
+    margin-left: 9px;
     margin-top: 7px;
 }
 
@@ -77,21 +77,21 @@
 	overflow: hidden;
 	background-color: #1d1e20;
 	border-radius: 50%;
-    top: 78px;
+    top: 23px;
     left: 31px;
 	transition: border-radius 0.5s;
 }
 
-.main.square{	
+.main.square {
 	z-index: 10;
 	position: absolute;
-	width: 375px; 
-	height:280px; 
+	width: 375px;
+	height: 280px;
 	border: 5px solid black;
 	overflow: hidden;
 	background-color: #1d1e20;
-	top: 65px;
-	left: 13px;	
+	top: 9px;
+	left: 14px;
 	transition: border-radius 0.5s;
 }
 

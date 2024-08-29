@@ -2,21 +2,21 @@
     display: none;
     position: absolute;
     width: 0px;
-    margin-top: 54px;
-    margin-left: 1px;
+    margin-top: 2px;
+    margin-left:-6px;
 }
 
 .countdown.ongoing{
     display: block;
 }
 
-.bombsvg{     
-    position: absolute;
-	top: 132px;
-    left: 129px;
-    width: 40px;
-    height: 40px;
-    transform: scale(-7.3,7.3) rotateY(-180deg) rotateZ(-90deg);
+.bombsvg {
+	position: absolute;
+	top: 128.5px;
+	left: 136px;
+	width: 40px;
+	height: 40px;
+	transform: scale(-7.3,7.3) rotateY(-180deg) rotateZ(-90deg);
 }
 
 .countdown.ongoing .bombsvg circle{
@@ -56,7 +56,7 @@
 .squarebomb {
     height: 294px;
     width: 294px;
-    margin-left: 6px;
+    margin-left: 6.5px;
     margin-top: 1px;
 }
 
@@ -78,23 +78,23 @@
 	overflow: hidden;
 	background-color: #2b2b2b;
 	border-radius: 50%;
-    top: 76.5px;
+    top: 21px;
     left: 21px;
     border: 3px solid black;
 	transition: border-radius 0.5s;
 }
 
 
-.main.square{
-	z-index: 10;	
+.main.square {
+	z-index: 10;
 	position: absolute;
-	width: 285px; 
-	height:285px; 
+	width: 285px;
+	height: 285px;
 	border: 5px solid black;
 	overflow: hidden;
 	background-color: #2b2b2b;
-    top: 60px;
-    left: 12px;	
+	top: 8px;
+	left: 6px;
 	transition: border-radius 0.5s;
 }
 
