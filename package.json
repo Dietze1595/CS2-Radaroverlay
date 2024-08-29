@@ -5,7 +5,7 @@
     "axios": "^0.22.0",
     "express": "^4.18.2",
     "fs": "0.0.1-security",
-    "socket.io": "^4.2.0"
+    "socket.io": "^4.7.5"
   },
   "name": "Radaroverlay",
   "description": "Hey, I'm Marcel Dietz, the developer of this FaceIt stream plug-in.\r The plug-in shows your live matchstats, as well as those of your teammates.\r Additionally the last FaceIt statistics of the last 20 games are displayed every 10 seconds.\r The plugins layout is designed to be placed over the radar, which protects you from streamsniping. (You can choose the resoltution of your circle between 16:9 and 4:3).\r If you want to get an impression, watch this [Youtubevideo](https://youtu.be/pTHZYc1WQpM).",
