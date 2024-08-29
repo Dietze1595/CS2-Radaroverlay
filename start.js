@@ -193,7 +193,7 @@ async function processPayload(e, a) {
             return t;
         }
         await axios
-            .get("https://open.faceit.com/data/v4/players", { params: { game_player_id: m, game: "csgo" }, headers: { Authorization: "Bearer " + Bearertoken } })
+            .get("https://open.faceit.com/data/v4/players", { params: { game_player_id: m, game: "cs2" }, headers: { Authorization: "Bearer " + Bearertoken } })
             .then((e) => {
                 200 !== e.status ? !0 : (playerID = e.data.player_id);
             })
@@ -268,16 +268,16 @@ async function getEloFromPlayer(e) {
                 ? (isNull = !0)
                 : ((NickPlayerId = e.data.nickname),
                   (playerSteamId = e.data.steam_id_64),
-                  (playerTempElo = e.data.games.csgo.faceit_elo),
+                  (playerTempElo = e.data.games.cs2.faceit_elo),
                   (playerAvatar = e.data.avatar),
                   (playerFlag = "https://cdn-frontend.faceit.com/web/112-1536332382/src/app/assets/images-compress/flags/" + e.data.country.toUpperCase() + ".png"),
-                  (playerFaceitlvl = e.data.games.csgo.skill_level));
+                  (playerFaceitlvl = e.data.games.cs2.skill_level));
         })
         .catch(function (e) {});
 }
 async function getStatsFromPlayer(e) {
     await axios
-        .get("https://open.faceit.com/data/v4/players/" + e + "/stats/csgo", { headers: { Authorization: "Bearer " + Bearertoken } })
+        .get("https://open.faceit.com/data/v4/players/" + e + "/stats/cs2", { headers: { Authorization: "Bearer " + Bearertoken } })
         .then((e) => {
             200 !== e.status
                 ? (isNull = !0)
@@ -287,12 +287,12 @@ async function getStatsFromPlayer(e) {
 }
 async function getPlayerIdFromPlayer(e, a) {
     await axios
-        .get("https://open.faceit.com/data/v4/players", { params: { game_player_id: e, game: "csgo" }, headers: { Authorization: "Bearer " + Bearertoken } })
+        .get("https://open.faceit.com/data/v4/players", { params: { game_player_id: e, game: "cs2" }, headers: { Authorization: "Bearer " + Bearertoken } })
         .then(async (e) => {
             200 === e.status &&
                 ((requeststate = 1),
                 (playerID = e.data.player_id),
-                (newsteamid = e.data.games.csgo.game_player_id),
+                (newsteamid = e.data.games.cs2.game_player_id),
                 await getStatsFromPlayer(playerID),
                 await getEloFromPlayer(playerID),
                 await getLast20Matches(playerID),
@@ -347,7 +347,7 @@ var playerKills = 0,
     playerKRAll = 0;
 async function getLast20Matches(e) {
     await axios
-        .get("https://api.faceit.com/stats/v1/stats/time/users/" + e + "/games/csgo?size=50", {})
+        .get("https://api.faceit.com/stats/v1/stats/time/users/" + e + "/games/cs2?size=50", {})
         .then(async (a) => {
             if (200 === a.status) {
                 for (playerKillsAll = 0, playerHSAll = 0, playerKDAll = 0, laenge = 20, playerKRAll = 0, i = 0; i < laenge; i++)
