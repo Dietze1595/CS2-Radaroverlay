@@ -1,4 +1,4 @@
-# **CSGOOverlay**
+# **RadarOverlay CS2**
 
 ## Introduction
 
