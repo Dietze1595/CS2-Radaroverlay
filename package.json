@@ -3,7 +3,7 @@
   "lockfileVersion": 1,
   "dependencies": {
     "axios": "^0.28.0",
-    "express": "^4.19.2",
+    "express": "^4.20.0",
     "fs": "0.0.1-security",
     "socket.io": "^4.7.5"
   },
