@@ -1,44 +1,30 @@
-# **RadarOverlay CS2**
+# **RadarOverlay CS2 (Blazor Edition)**
 
 ## Introduction
 
-Hey, I'm Marcel Dietz, the developer of this FaceIt stream plug-in.
-The plug-in shows your live matchstats, as well as those of your teammates.
-Additionally the last FaceIt statistics of the last 20 games are displayed every 10 seconds.
-The plugins layout is designed to be placed over the radar, which protects you from streamsniping. (You can choose the resoltution of your circle between 16:9 and 4:3).
-If you want to get an impression, watch this [Youtubevideo](https://youtu.be/RvJDKx1TZwM). 
+Dies ist eine umgewandelte Version des RadarOverlay-Projekts, nun basierend auf **C# Blazor (.NET 8)**.
+Es zeigt Live-Match-Statistiken von Faceit und CS2 direkt in einem Webbrowser oder als OBS-Overlay an.
+Das Design ist so optimiert, dass es über dem Radar platziert werden kann, um Stream-Sniping zu verhindern.
 
-I have two Overlays, one to cover the radar, and 2. a simple information about the Faceitmatch.
-You can chose these two Radars over the branch on Github.
-The Radaroverlay is called Master, the information over the faceitmatch is called FaceitOverlay
+## Installation
 
-![Picture](https://raw.githubusercontent.com/Dietze1595/Faceitplugin/master/public/picture/overview.PNG) 
+1.  **GSI Konfiguration:** Kopiere die Datei `gamestate_integration_radaroverlay.cfg` in deinen CS2 cfg-Ordner:
+    `\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg`
+2.  **Faceit Token:** Öffne `appsettings.json` und trage deinen Faceit Bearer Token unter `"FaceitToken"` ein.
+    - Erstelle einen App/Token auf [developers.faceit.com](https://developers.faceit.com/apps).
+3.  **Starten:**
+    - Stelle sicher, dass [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) installiert ist.
+    - Führe `dotnet run` im Hauptverzeichnis aus.
+    - Das Overlay ist unter `http://localhost:3001` (16:9) oder `http://localhost:3001?res=43` (4:3) erreichbar.
 
+## CS2 Anpassungen
 
+- Das Projekt wurde vollständig auf **CS2** (Counter-Strike 2) abgestimmt.
+- Alle Faceit API-Abfragen nutzen das `cs2` Spiel-Präfix.
+- Die GSI-Konfiguration wurde für CS2 optimiert.
 
+## OBS Integration
 
-## Install
-
-* Clone the [project (Radar)](https://github.com/Dietze1595/Faceitplugin) or click the [Download Zip (Radar)](https://github.com/Dietze1595/Faceitplugin/archive/master.zip) button and extract the file
-* copy-paste the file gamestate_integration_overlay.cfg in your csgo cfg folder 
-> \Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg
-* Install Node.JS [Nodejs.org](https://nodejs.org/en/download/)
-  * Check the box in the installation, **NPM is included**
-* open the config.json file and add your Faceit Bearer token
-  * Open the Link [developers.faceit.com](https://developers.faceit.com/apps) and create an app
-  * Go to the tab API KEYS and create a new **Client Side** token
-  * Copy the token and implement the token to the config.json file
-* open your commandwindow, an type the following lines
-  * cd \where\you\extracted\the\zip\Faceitplugin
-  * npm install
-* Go to the following path: 
-> \where\you\extracted\the\zip\Faceitplugin\Desktop
-* Create a link of the start.bat file to your desktop (move the file while holding your right mousebutton)
- 
-## Start
-
-* Doubleclick the start.bat file on your Desktop and leave it in the background open
-* Open the following link on your webbrowser or implement the URL in your OBS screen (width: 1920 height: 1080)
-* Notice: The overlay is optimized for the 1920x1080 as well as for 1280x960 csgo resolution. If you are playing other resolutions you have to move the browser window in the OBS scene or enlarge it.
-> http://127.0.0.1:3001/169 or http://127.0.0.1:3001/43 for the resolution of your circle
-
+- Füge eine neue Browser-Quelle in OBS hinzu.
+- URL: `http://localhost:3001`
+- Breite: 1920, Höhe: 1080
