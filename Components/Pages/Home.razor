@@ -1,0 +1,258 @@
+@page "/"
+@using RadarOverlay.Services
+@using RadarOverlay.Models
+@using Microsoft.AspNetCore.Components.Web
+@implements IDisposable
+@inject GameStateService GameStateService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Radar Overlay</PageTitle>
+
+<HeadContent>
+    @if (Res == "43")
+    {
+        <link rel="stylesheet" href="css/basic.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="css/basic169.css" />
+    }
+</HeadContent>
+
+<div class="page @(State.GameState == 1 && State.Phase != "gameover" && State.Activity != "menu" ? "visible" : "hidden")">
+    <div class="countdown @(State.Bomb == "planted" ? "ongoing" : "") @(State.Bomb == "defused" ? "green" : "")">
+        <svg class="bombsvg">
+            <circle class="svgcircle" r="18" cx="20" cy="20"></circle>
+        </svg>
+        <div class="squarebomb"></div>
+    </div>
+    <div class="main @(IsCircle ? "circle" : "square")">
+        @if (State.RequestState == 1)
+        {
+            <div class="loader visible" style="z-index:1; overflow: hidden;">
+                <span class="b b1" style="border-radius: 50%" />
+                <span class="b b2" style="border-radius: 50%" />
+                <span class="b b3" style="border-radius: 50%" />
+                <span class="b b4" style="border-radius: 50%" />
+            </div>
+        }
+        else
+        {
+            <div class="tablepage visible">
+                @if (Res == "43")
+                {
+                    <div class="userprofile">
+                        <div class="user">
+                            <img id="profilepicture" src="@State.Avatar">
+                            <span id="username">@State.Name</span>
+                        </div>
+                        <div class="faceitGeneral">
+                            <img class="flag" id="flag" src="@State.Flag">
+                            <div class="Elo">
+                                <span>Elo:</span>
+                                <span id="playerElo">@State.Elo</span>
+                            </div>
+                            @if (State.FaceitLevel > 0)
+                            {
+                                <img class="skill" id="skill_level_icon" src="https://cdn-frontend.faceit.com/web/960/src/app/assets/images-compress/skill-icons/skill_level_@(State.FaceitLevel)_svg.svg">
+                            }
+                        </div>
+
+                        <div class="FaceitWins">
+                            <div class="wins">
+                                <span>Wins:</span>
+                                <span id="playerWins">@State.Wins</span>
+                                <span>/</span>
+                                <span id="playerGames">@State.PlayedGames</span>
+                            </div>
+                            <div class="wins">
+                                <span>Winstreak</span>
+                                <span id="playerCurrentWinstreak">@State.CurrentWinstreak</span>
+                                <span>/</span>
+                                <span id="playerLongestWinstreak">@State.LongestWinstreak</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <div class="user">
+                            <img id="profilepicture" src="@State.Avatar">
+                            <span id="username">@State.Name</span>
+                        </div>
+                        <div class="faceitGeneral">
+                            <img class="flag" id="flag" src="@State.Flag">
+                            <div class="Elo">
+                                <span>Elo:</span>
+                                <span id="playerElo">@State.Elo</span>
+                            </div>
+                            @if (State.FaceitLevel > 0)
+                            {
+                                <img class="skill" id="skill_level_icon" src="https://cdn-frontend.faceit.com/web/960/src/app/assets/images-compress/skill-icons/skill_level_@(State.FaceitLevel)_svg.svg">
+                            }
+                        </div>
+
+                        <div class="FaceitWins">
+                            <div class="wins">
+                                <span>Wins:</span>
+                                <span id="playerWins">@State.Wins</span>
+                                <span>/</span>
+                                <span id="playerGames">@State.PlayedGames</span>
+                            </div>
+                            <div class="wins">
+                                <span>Winstreak</span>
+                                <span id="playerCurrentWinstreak">@State.CurrentWinstreak</span>
+                                <span>/</span>
+                                <span id="playerLongestWinstreak">@State.LongestWinstreak</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (State.GameName == "Faceit")
+                {
+                    <div class="FaceitRoomStats visible">
+                        <span class="RoomHeadline">Faceit Roomstats</span>
+                        <div class="RoomName">
+                            <span class="TeamName" id="playerOwnTeamName">@State.OwnTeamName</span>
+                            <span>vs</span>
+                            <span class="TeamName" id="playerEnemyTeam">@State.EnemyTeamName</span>
+                        </div>
+                        <div class="RoomElo">
+                            <div class="TeamElo">
+                                <span>Avg. Elo:</span>
+                                <span id="ownTeamAvgElo">@State.OwnTeamAvgElo</span>
+                            </div>
+                            <div class="PlusMinus">
+                                <span id="plusElo">@State.WinElo</span>
+                                <img class="arrowImg" src="picture/updown1.png">
+                                <span id="minusElo">@State.LossElo</span>
+                            </div>
+                            <div class="TeamElo">
+                                <span>Avg. Elo:</span>
+                                <span id="enemyTeamAvgElo">@State.EnemyTeamAvgElo</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="MMRoomStats visible">
+                        <span>-</span>
+                        <span>No Faceitmatch found</span>
+                        <span>-</span>
+                    </div>
+                }
+
+                <div class="slider" style="width: 100%; margin: auto;">
+                    <ul class="slideList">
+                        <div class="currentMatchstats slide slide01">
+                            <table align="center" style="font-size:0.07em; width:100%; font-weight:bold">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7" class="MatchStatsHeadline">Current Matchstats</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tableText">Kills</td>
+                                        <td class="tableText">Assists</td>
+                                        <td class="tableText">Deaths</td>
+                                        <td class="tableText">MVPs</td>
+                                        <td class="tableText">Score</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tableText"><span class="tableText" id="playerKills">@State.Kills</span></td>
+                                        <td class="tableText"><span class="tableText" id="playerAssists">@State.Assists</span></td>
+                                        <td class="tableText"><span class="tableText" id="playerDeaths">@State.Deaths</span></td>
+                                        <td class="tableText"><span class="tableText" id="playerMVPs">@State.Mvps</span></td>
+                                        <td class="tableText"><span class="tableText" id="playerScore">@State.Score</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table align="center" style="font-size:0.07em; width:100%; height:20px; font-weight:bold">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:12%"></td>
+                                        <td style="text-align:center; width:76%">
+                                            <div class="progress" style="width: 100%; margin: auto;">
+                                                <div class="progress bg-danger progress-bar-striped progress-bar-animated">
+                                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                                                         role="progressbar" id="barchartKills" style="width: @KdPercentage"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="width:12%"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="deaths" style="display: flex; align-items: center; justify-content: center;">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <img src="picture/image.png" class="deathSkull @(State.RoundKills >= i ? "visible" : "hidden")" alt="image">
+                                }
+                            </div>
+                        </div>
+
+                        <div class="20Matchstats slide slide02">
+                            <table align="center" style="font-size:0.07em; width:100%; font-weight:bold">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" class="MatchStatsHeadline">Last 20 Matchstats</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tableText">Kills</td>
+                                        <td class="tableText">HS %</td>
+                                        <td class="tableText">K/D</td>
+                                        <td class="tableText">K/R</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tableText"><span class="tableText" id="player20Kills">@State.Player20Kills</span></td>
+                                        <td class="tableText"><span class="tableText" id="player20HS">@State.Player20Hs</span></td>
+                                        <td class="tableText"><span class="tableText" id="player20KD">@State.Player20Kd</span></td>
+                                        <td class="tableText"><span class="tableText" id="player20KR">@State.Player20Kr</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromQuery(Name = "res")]
+    public string? Res { get; set; }
+
+    private OverlayState State => GameStateService.CurrentState;
+    private bool IsCircle => State.MySteamId == State.PlayerSteamId && State.Round >= 1;
+
+    private string KdPercentage
+    {
+        get
+        {
+            if (State.Deaths == 0 && State.Kills == 0) return "50%";
+            if (State.Deaths == 0) return "100%";
+            double ratio = (double)State.Kills / (State.Kills + State.Deaths);
+            return (ratio * 100).ToString("F0") + "%";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        GameStateService.OnChange += StateChanged;
+    }
+
+    private void StateChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        GameStateService.OnChange -= StateChanged;
+    }
+}
