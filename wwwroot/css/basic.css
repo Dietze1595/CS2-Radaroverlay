@@ -157,11 +157,15 @@
     line-height: 1.1;
 }
 
-.userprofile,
-.tablepage > div:first-child {
-    border-bottom: 1px solid var(--surface-line);
-    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+.square.tablepage {
+    left: 0px;
 }
+
+    .userprofile,
+    .tablepage > div:first-child {
+        border-bottom: 1px solid var(--surface-line);
+        background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+    }
 
 .user {
     display: flex;
@@ -456,9 +460,6 @@ span.tableText[id] {
     visibility: visible !important;
     opacity: 1;
     transition: opacity 2s linear;
-    top: 4px;
-    left: 8px;
-    position: absolute;
 }
 .hidden { visibility: hidden; opacity: 0; transition: visibility 0s 2s, opacity 2s linear; }
 .collapse { visibility: collapse; opacity: 0; transition: visibility 0s 2s, opacity 2s linear; display: none; }
