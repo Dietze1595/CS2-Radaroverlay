@@ -7,8 +7,8 @@ RadarOverlay displays live CS2 and Faceit data as a browser overlay for OBS. The
 
 ## Using the Release Build
 
-The finished Windows build is placed in the `publish` folder after publishing.
-
+The finished Windows build is placed in the `release` on the right side.
+1. Download the release and unzip it.
 1. Start `RadarOverlay.exe`.
 2. Open `http://localhost:3001` in your browser if the page does not open automatically.
 3. Enter your Faceit Bearer token on the setup page.
