@@ -1,0 +1,200 @@
+@page "/"
+@using RadarOverlay.Services
+@implements IDisposable
+@inject SettingsService Settings
+@inject Cs2SetupService Cs2Setup
+@inject GameStateService GameState
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+
+<PageTitle>RadarOverlay – Einrichtung</PageTitle>
+
+<HeadContent>
+    <style>
+        body { background:#1d1e20; color:#e2e2e2; }
+        .setup-wrap { max-width: 760px; margin: 0 auto; padding: 28px 18px 60px; }
+        .setup-card { background:#2b2b2b; border:1px solid #3a3a3a; border-radius:10px; padding:20px 22px; margin-bottom:18px; }
+        .setup-card h2 { font-size:1.1rem; margin:0 0 14px; color:#ff5500; }
+        .status-row { display:flex; align-items:center; gap:10px; padding:6px 0; }
+        .badge-dot { width:11px; height:11px; border-radius:50%; flex:0 0 auto; }
+        .dot-ok { background:#2ecc40; }
+        .dot-warn { background:#ff851b; }
+        .dot-off { background:#888; }
+        .muted { color:#9a9a9a; font-size:.85rem; }
+        .url-box { display:flex; gap:8px; align-items:center; margin-top:8px; }
+        .url-box code { background:#1d1e20; border:1px solid #3a3a3a; border-radius:6px; padding:8px 10px; flex:1 1 auto; color:#e2e2e2; overflow-x:auto; }
+        .setup-title { color:#fff; font-weight:700; }
+        .setup-title span { color:#ff5500; }
+        input.form-control { background:#1d1e20; border:1px solid #3a3a3a; color:#e2e2e2; }
+        input.form-control:focus { background:#1d1e20; color:#fff; border-color:#ff5500; box-shadow:none; }
+    </style>
+</HeadContent>
+
+<div class="setup-wrap">
+    <h1 class="setup-title mb-4">Radar<span>Overlay</span> CS2 – Einrichtung</h1>
+
+    <!-- 1. Faceit-Token -->
+    <div class="setup-card">
+        <h2>1 · Faceit API-Token</h2>
+        <p class="muted">
+            Erstelle einen Token auf
+            <a href="https://developers.faceit.com/apps" target="_blank" rel="noopener">developers.faceit.com/apps</a>
+            und füge ihn hier ein.
+        </p>
+        <div class="form-group mb-2">
+            <input class="form-control" type="text" @bind="_token" placeholder="Faceit Bearer Token" />
+        </div>
+        <button class="btn btn-warning" @onclick="SaveToken">Token speichern</button>
+        @if (_tokenSaved)
+        {
+            <span class="ml-2" style="color:#2ecc40;">✓ gespeichert</span>
+        }
+        <div class="status-row mt-2">
+            <span class="badge-dot @(HasToken ? "dot-ok" : "dot-warn")"></span>
+            <span>@(HasToken ? "Token hinterlegt" : "Noch kein Token hinterlegt")</span>
+        </div>
+    </div>
+
+    <!-- 2. CS2 Game State Integration -->
+    <div class="setup-card">
+        <h2>2 · CS2-Verbindung (Game State Integration)</h2>
+
+        <div class="status-row">
+            <span class="badge-dot @(_status.Found ? "dot-ok" : "dot-warn")"></span>
+            <span>
+                @if (_status.Found)
+                {
+                    @:CS2 gefunden:
+                    <span class="muted">@_status.CfgFolder</span>
+                }
+                else
+                {
+                    @:CS2 nicht automatisch gefunden
+                }
+            </span>
+        </div>
+
+        <div class="status-row">
+            <span class="badge-dot @(_status.CfgPresent ? "dot-ok" : "dot-warn")"></span>
+            <span>@(_status.CfgPresent ? "GSI-Konfiguration installiert" : "GSI-Konfiguration noch nicht geschrieben")</span>
+        </div>
+
+        <div class="status-row">
+            <span class="badge-dot @(GameState.IsConnected ? "dot-ok" : "dot-off")"></span>
+            <span>@(GameState.IsConnected ? "CS2 sendet Daten ✓" : "Warte auf Daten von CS2 … (CS2 starten & Match beitreten)")</span>
+        </div>
+
+        <button class="btn btn-outline-light btn-sm mt-2" @onclick="WriteCfg">GSI-Datei (neu) schreiben</button>
+
+        @if (!string.IsNullOrEmpty(_cfgMessage))
+        {
+            <div class="mt-2" style="color:@(_cfgError ? "#ff4136" : "#2ecc40");">@_cfgMessage</div>
+        }
+
+        @if (!_status.Found)
+        {
+            <div class="mt-3">
+                <p class="muted mb-1">CS2 manuell angeben (Pfad zum <code>...\game\csgo\cfg</code>-Ordner):</p>
+                <div class="form-group mb-2">
+                    <input class="form-control" type="text" @bind="_manualPath"
+                           placeholder="z. B. D:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg" />
+                </div>
+                <button class="btn btn-outline-light btn-sm" @onclick="SaveManualPath">Pfad speichern</button>
+            </div>
+        }
+    </div>
+
+    <!-- 3. OBS -->
+    <div class="setup-card">
+        <h2>3 · In OBS einbinden</h2>
+        <p class="muted">Füge in OBS eine <strong>Browser-Quelle</strong> hinzu und trage je nach Spiel-Seitenverhältnis eine dieser URLs ein:</p>
+
+        <div class="mb-3">
+            <div class="setup-title">16:9</div>
+            <div class="url-box">
+                <code>@OverlayUrl169</code>
+                <button class="btn btn-warning btn-sm" @onclick="() => Copy(OverlayUrl169, 1)">@(CopiedIndex == 1 ? "Kopiert!" : "Kopieren")</button>
+            </div>
+        </div>
+
+        <div>
+            <div class="setup-title">4:3</div>
+            <div class="url-box">
+                <code>@OverlayUrl43</code>
+                <button class="btn btn-warning btn-sm" @onclick="() => Copy(OverlayUrl43, 2)">@(CopiedIndex == 2 ? "Kopiert!" : "Kopieren")</button>
+            </div>
+        </div>
+
+        <p class="muted mt-3 mb-0">Tipp: Browser-Quelle auf 1920×1080 (16:9) stellen. Vorschau ohne CS2: <code>?demo=1</code> an die URL anhängen.</p>
+    </div>
+</div>
+
+@code {
+    private string? _token;
+    private string? _manualPath;
+    private bool _tokenSaved;
+    private string? _cfgMessage;
+    private bool _cfgError;
+    private int CopiedIndex;
+    private Cs2SetupStatus _status = new();
+    private System.Threading.Timer? _timer;
+
+    private bool HasToken => !string.IsNullOrWhiteSpace(Settings.FaceitToken);
+    private string OverlayUrl169 => $"{Nav.BaseUri}overlay";
+    private string OverlayUrl43 => $"{Nav.BaseUri}overlay?res=43";
+
+    protected override void OnInitialized()
+    {
+        _token = Settings.FaceitToken;
+        _manualPath = Settings.Cs2CfgPath;
+        _status = Cs2Setup.GetStatus();
+
+        // GSI-Status alle 3s aktualisieren (zeigt "CS2 sendet Daten", sobald ein Match läuft)
+        _timer = new System.Threading.Timer(_ => InvokeAsync(StateHasChanged), null,
+            TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(3));
+    }
+
+    private void SaveToken()
+    {
+        Settings.SetToken(_token);
+        _tokenSaved = true;
+    }
+
+    private void WriteCfg()
+    {
+        var result = Cs2Setup.WriteCfg();
+        _status = Cs2Setup.GetStatus();
+        if (result.Error != null)
+        {
+            _cfgError = true;
+            _cfgMessage = result.Error;
+        }
+        else
+        {
+            _cfgError = false;
+            _cfgMessage = $"GSI-Datei geschrieben nach: {result.CfgFolder}";
+        }
+    }
+
+    private void SaveManualPath()
+    {
+        Settings.SetCfgPath(_manualPath);
+        _status = Cs2Setup.GetStatus();
+        WriteCfg();
+    }
+
+    private async Task Copy(string url, int index)
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("navigator.clipboard.writeText", url);
+            CopiedIndex = index;
+        }
+        catch
+        {
+            // Clipboard nicht verfügbar -> ignorieren
+        }
+    }
+
+    public void Dispose() => _timer?.Dispose();
+}

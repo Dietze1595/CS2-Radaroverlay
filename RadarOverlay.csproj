@@ -1,10 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+    <!-- Den Publish-Output-Ordner nie mitkompilieren/scannen (sonst BLAZOR106 durch kopierte .razor.js) -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);publish\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <!-- Verhindert AppHost-Locks in obj/bin waehrend lokaler Debug-Builds in Visual Studio. -->
+    <UseAppHost>false</UseAppHost>
   </PropertyGroup>
 
 </Project>

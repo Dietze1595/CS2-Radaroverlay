@@ -1,7 +1,8 @@
-@page "/"
+@page "/overlay"
 @using RadarOverlay.Services
 @using RadarOverlay.Models
 @using Microsoft.AspNetCore.Components.Web
+@using System.Globalization
 @implements IDisposable
 @inject GameStateService GameStateService
 @inject NavigationManager NavigationManager
@@ -20,7 +21,7 @@
 </HeadContent>
 
 <div class="page @(State.GameState == 1 && State.Phase != "gameover" && State.Activity != "menu" ? "visible" : "hidden")">
-    <div class="countdown @(State.Bomb == "planted" ? "ongoing" : "") @(State.Bomb == "defused" ? "green" : "")">
+    <div class="countdown @(State.Bomb == "planted" ? "ongoing" : "") @(State.Bomb == "defused" ? "green" : "")" style="@_bombStyle">
         <svg class="bombsvg">
             <circle class="svgcircle" r="18" cx="20" cy="20"></circle>
         </svg>
@@ -170,23 +171,6 @@
                                 </tbody>
                             </table>
 
-                            <table align="center" style="font-size:0.07em; width:100%; height:20px; font-weight:bold">
-                                <tbody>
-                                    <tr>
-                                        <td style="width:12%"></td>
-                                        <td style="text-align:center; width:76%">
-                                            <div class="progress" style="width: 100%; margin: auto;">
-                                                <div class="progress bg-danger progress-bar-striped progress-bar-animated">
-                                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                                                         role="progressbar" id="barchartKills" style="width: @KdPercentage"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="width:12%"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
                             <div class="deaths" style="display: flex; align-items: center; justify-content: center;">
                                 @for (int i = 1; i <= 5; i++)
                                 {
@@ -216,6 +200,29 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="last5games slide slide03">
+                            <table align="center" style="font-size:0.07em; width:100%; font-weight:bold">
+                                <tbody>
+                                    <tr>
+                                        <td class="MatchStatsHeadline">Last 5 Games</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="last5">
+                                @if (State.Last5Results is { Count: > 0 })
+                                {
+                                    @foreach (var win in State.Last5Results)
+                                    {
+                                        <span class="resultBox @(win ? "win" : "loss")">@(win ? "W" : "L")</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="tableText">-</span>
+                                }
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </div>
@@ -227,27 +234,66 @@
     [SupplyParameterFromQuery(Name = "res")]
     public string? Res { get; set; }
 
-    private OverlayState State => GameStateService.CurrentState;
-    private bool IsCircle => State.MySteamId == State.PlayerSteamId && State.Round >= 1;
+    [SupplyParameterFromQuery(Name = "demo")]
+    public string? Demo { get; set; }
 
-    private string KdPercentage
+    [SupplyParameterFromQuery(Name = "bomb")]
+    public string? BombDemo { get; set; }
+
+    [SupplyParameterFromQuery(Name = "dead")]
+    public string? DeadDemo { get; set; }
+
+    private OverlayState State => Demo == "1" ? BuildDemoState() : GameStateService.CurrentState;
+
+    private OverlayState BuildDemoState()
     {
-        get
+        var s = BombDemo == "1" ? DemoData.SamplePlanted : DemoData.Sample;
+        if (DeadDemo == "1")
         {
-            if (State.Deaths == 0 && State.Kills == 0) return "50%";
-            if (State.Deaths == 0) return "100%";
-            double ratio = (double)State.Kills / (State.Kills + State.Deaths);
-            return (ratio * 100).ToString("F0") + "%";
+            // Tot / Spectator -> rechteckiger Radar (.main.square)
+            s.MySteamId = "76561190000000001";
+            s.PlayerSteamId = "76561190000000002";
         }
+        else
+        {
+            // Lebend, eigene Sicht -> runder Radar (.main.circle)
+            s.MySteamId = "76561190000000001";
+            s.PlayerSteamId = "76561190000000001";
+            s.Round = 100;
+        }
+        return s;
     }
+
+    // Negativer animation-delay, der den CSS-Ring exakt auf den GSI-Countdown synchronisiert.
+    // Wird nur EINMAL beim Legen der Bombe gesetzt, damit die Animation bei Folge-Updates nicht neu startet.
+    private string _bombStyle = "";
+    private string? _prevBomb;
+
+    private void UpdateBombStyle(OverlayState s)
+    {
+        if (s.Bomb == "planted" && _prevBomb != "planted")
+        {
+            var remaining = s.BombCountdown ?? 40.0;       // CS2-Bombe: 40s Gesamtlaufzeit
+            var delay = remaining - 40.0;                  // z.B. 25s verbleibend -> -15s -> Ring startet 15s "spaeter"
+            _bombStyle = $"--bomb-delay: {delay.ToString(CultureInfo.InvariantCulture)}s";
+        }
+        else if (s.Bomb != "planted")
+        {
+            _bombStyle = "";
+        }
+        _prevBomb = s.Bomb;
+    }
+    private bool IsCircle => State.MySteamId == State.PlayerSteamId && State.Round >= 1;
 
     protected override void OnInitialized()
     {
         GameStateService.OnChange += StateChanged;
+        UpdateBombStyle(State);   // Demo-Modus: Bomben-State direkt beim Laden uebernehmen
     }
 
     private void StateChanged()
     {
+        UpdateBombStyle(State);
         InvokeAsync(StateHasChanged);
     }
 

@@ -95,6 +95,10 @@ public class FaceitHistoryMatch
 {
     public string? GameMode { get; set; }
 
+    // i10 = Ergebnis ("1" = Sieg, "0" = Niederlage)
+    [JsonPropertyName("i10")]
+    public string? Result { get; set; }
+
     [JsonPropertyName("i6")]
     public string? Kills { get; set; }
 

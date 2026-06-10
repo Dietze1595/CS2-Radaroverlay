@@ -1,6 +1,3 @@
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text.Json;
 using RadarOverlay.Models;
 using RadarOverlay.Models.Faceit;
 using RadarOverlay.Models.Gsi;
@@ -9,15 +6,13 @@ namespace RadarOverlay.Services;
 
 public class FaceitService
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _token;
+    private readonly FaceitApiClient _api;
     private readonly Dictionary<string, FaceitPlayerInfo> _playerRoster = new();
     private readonly Dictionary<string, TeamInfo> _teamDatabase = new();
 
-    public FaceitService(HttpClient httpClient, IConfiguration configuration)
+    public FaceitService(FaceitApiClient api)
     {
-        _httpClient = httpClient;
-        _token = configuration["FaceitToken"] ?? "";
+        _api = api;
     }
 
     public async Task<OverlayState> ProcessPayload(GsiPayload payload)
@@ -55,13 +50,13 @@ public class FaceitService
     {
         try
         {
-            var faceitPlayer = await GetPlayerBySteamId(mySteamId);
+            var faceitPlayer = await _api.GetPlayerBySteamIdAsync(mySteamId);
             if (faceitPlayer != null)
             {
-                var roomId = await GetFaceitMatchId(faceitPlayer.PlayerId!);
+                var roomId = await _api.GetLiveMatchIdAsync(faceitPlayer.PlayerId!);
                 if (!string.IsNullOrEmpty(roomId))
                 {
-                    await GetLiveStats(mySteamId, roomId);
+                    await LoadRoomStats(mySteamId, roomId);
                 }
                 else
                 {
@@ -69,7 +64,7 @@ public class FaceitService
                 }
             }
 
-            await GetPlayerIdFromPlayer(playerSteamId, mySteamId);
+            await LoadPlayerInfo(playerSteamId);
         }
         catch (Exception ex)
         {
@@ -77,76 +72,47 @@ public class FaceitService
         }
     }
 
-    private async Task<FaceitPlayer?> GetPlayerBySteamId(string steamId)
+    private async Task LoadRoomStats(string mySteamId, string roomId)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://open.faceit.com/data/v4/players?game_player_id={steamId}&game=cs2");
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        var response = await _httpClient.SendAsync(request);
-        if (response.IsSuccessStatusCode)
+        var data = await _api.GetMatchAsync(roomId);
+        var payload = data?.Payload;
+        if (payload?.Teams == null)
         {
-            return await response.Content.ReadFromJsonAsync<FaceitPlayer>();
+            return;
         }
-        return null;
-    }
 
-    private async Task<string?> GetFaceitMatchId(string userId)
-    {
-        var response = await _httpClient.GetAsync($"https://api.faceit.com/match/v1/matches/groupByState?userId={userId}");
-        if (response.IsSuccessStatusCode)
+        var ownFaction = CheckForValue(payload.Teams.Faction1, mySteamId) ? payload.Teams.Faction1 : payload.Teams.Faction2;
+        var enemyFaction = ownFaction == payload.Teams.Faction1 ? payload.Teams.Faction2 : payload.Teams.Faction1;
+
+        if (ownFaction != null && enemyFaction != null)
         {
-            using var doc = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync());
-            var payload = doc.RootElement.GetProperty("payload");
-            foreach (var property in payload.EnumerateObject())
+            var ownAvgElo = (int)ownFaction.Roster!.Average(r => r.Elo);
+            var enemyAvgElo = (int)enemyFaction.Roster!.Average(r => r.Elo);
+            var winElo = ownFaction.Stats != null
+                ? CalculateRatingChange(ownFaction.Stats.WinProbability, 50)
+                : CalculateRatingChangeOld(ownAvgElo, enemyAvgElo);
+
+            _teamDatabase[mySteamId] = new TeamInfo
             {
-                if (property.Name == "VOTING" || property.Name == "READY" || property.Name == "ONGOING")
-                {
-                    return property.Value[0].GetProperty("id").GetString();
-                }
-            }
-        }
-        return null;
-    }
-
-    private async Task GetLiveStats(string mySteamId, string roomId)
-    {
-        var response = await _httpClient.GetAsync($"https://api.faceit.com/match/v2/match/{roomId}");
-        if (response.IsSuccessStatusCode)
-        {
-            var data = await response.Content.ReadFromJsonAsync<FaceitMatchV2>();
-            var payload = data?.Payload;
-            if (payload?.Teams != null)
-            {
-                var ownFaction = CheckForValue(payload.Teams.Faction1, mySteamId) ? payload.Teams.Faction1 : payload.Teams.Faction2;
-                var enemyFaction = ownFaction == payload.Teams.Faction1 ? payload.Teams.Faction2 : payload.Teams.Faction1;
-
-                if (ownFaction != null && enemyFaction != null)
-                {
-                    var ownAvgElo = (int)ownFaction.Roster!.Average(r => r.Elo);
-                    var enemyAvgElo = (int)enemyFaction.Roster!.Average(r => r.Elo);
-                    var winElo = ownFaction.Stats != null ? CalculateRatingChange(ownFaction.Stats.WinProbability, 50) : CalculateRatingChangeOld(ownAvgElo, enemyAvgElo);
-
-                    _teamDatabase[mySteamId] = new TeamInfo
-                    {
-                        GameName = "Faceit",
-                        OwnTeamName = ownFaction.Name,
-                        EnemyTeamName = enemyFaction.Name,
-                        OwnTeamAvgElo = ownAvgElo,
-                        EnemyTeamAvgElo = enemyAvgElo,
-                        WinElo = winElo,
-                        LossElo = 50 - winElo
-                    };
-                }
-            }
+                GameName = "Faceit",
+                OwnTeamName = ownFaction.Name,
+                EnemyTeamName = enemyFaction.Name,
+                OwnTeamAvgElo = ownAvgElo,
+                EnemyTeamAvgElo = enemyAvgElo,
+                WinElo = winElo,
+                LossElo = 50 - winElo
+            };
         }
     }
 
-    private async Task GetPlayerIdFromPlayer(string playerSteamId, string mySteamId)
+    private async Task LoadPlayerInfo(string playerSteamId)
     {
-        var faceitPlayer = await GetPlayerBySteamId(playerSteamId);
+        var faceitPlayer = await _api.GetPlayerBySteamIdAsync(playerSteamId);
         if (faceitPlayer != null)
         {
-            var stats = await GetStatsFromPlayer(faceitPlayer.PlayerId!);
-            var history = await GetLast20Matches(faceitPlayer.PlayerId!);
+            var stats = await _api.GetPlayerStatsAsync(faceitPlayer.PlayerId!);
+            var matches = await _api.GetRecentMatchesAsync(faceitPlayer.PlayerId!);
+            var history = AggregateLast20(matches);
 
             _playerRoster[playerSteamId] = new FaceitPlayerInfo
             {
@@ -162,7 +128,8 @@ public class FaceitService
                 Player20Kills = history.Kills,
                 Player20Hs = history.Hs,
                 Player20Kd = history.Kd,
-                Player20Kr = history.Kr
+                Player20Kr = history.Kr,
+                Last5Results = GetLast5Results(matches)
             };
         }
         else
@@ -182,48 +149,47 @@ public class FaceitService
         }
     }
 
-    private async Task<FaceitStats?> GetStatsFromPlayer(string userId)
+    private static (int Kills, int Hs, string Kd, string Kr) AggregateLast20(List<FaceitHistoryMatch>? matches)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://open.faceit.com/data/v4/players/{userId}/stats/cs2");
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        var response = await _httpClient.SendAsync(request);
-        if (response.IsSuccessStatusCode)
+        if (matches != null)
         {
-            return await response.Content.ReadFromJsonAsync<FaceitStats>();
-        }
-        return null;
-    }
-
-    private async Task<(int Kills, int Hs, string Kd, string Kr)> GetLast20Matches(string userId)
-    {
-        var response = await _httpClient.GetAsync($"https://api.faceit.com/stats/v1/stats/time/users/{userId}/games/cs2?size=50");
-        if (response.IsSuccessStatusCode)
-        {
-            var matches = await response.Content.ReadFromJsonAsync<List<FaceitHistoryMatch>>();
-            if (matches != null)
+            int totalKills = 0, totalHs = 0;
+            double totalKd = 0, totalKr = 0;
+            int count = 0;
+            foreach (var m in matches)
             {
-                int totalKills = 0, totalHs = 0;
-                double totalKd = 0, totalKr = 0;
-                int count = 0;
-                foreach (var m in matches)
+                if (m.GameMode == "5v5")
                 {
-                    if (m.GameMode == "5v5")
-                    {
-                        totalKills += int.Parse(m.Kills ?? "0");
-                        totalHs += (int)(double.Parse(m.HsPercentage ?? "0") * 100);
-                        totalKd += double.Parse(m.KdRatio ?? "0") * 100;
-                        totalKr += double.Parse(m.KrRatio ?? "0") * 100;
-                        count++;
-                        if (count == 20) break;
-                    }
+                    totalKills += int.Parse(m.Kills ?? "0");
+                    totalHs += (int)(double.Parse(m.HsPercentage ?? "0") * 100);
+                    totalKd += double.Parse(m.KdRatio ?? "0") * 100;
+                    totalKr += double.Parse(m.KrRatio ?? "0") * 100;
+                    count++;
+                    if (count == 20) break;
                 }
-                if (count > 0)
-                {
-                    return (totalKills / count, totalHs / (count * 100), (totalKd / (count * 100)).ToString("F2"), (totalKr / (count * 100)).ToString("F2"));
-                }
+            }
+            if (count > 0)
+            {
+                return (totalKills / count, totalHs / (count * 100), (totalKd / (count * 100)).ToString("F2"), (totalKr / (count * 100)).ToString("F2"));
             }
         }
         return (0, 0, "0.00", "0.00");
+    }
+
+    // Letzte bis zu 5 5v5-Spiele als Sieg(true)/Niederlage(false), neuestes zuerst.
+    private static List<bool> GetLast5Results(List<FaceitHistoryMatch>? matches)
+    {
+        var results = new List<bool>();
+        if (matches == null) return results;
+        foreach (var m in matches)
+        {
+            if (m.GameMode == "5v5")
+            {
+                results.Add(m.Result == "1");
+                if (results.Count == 5) break;
+            }
+        }
+        return results;
     }
 
     private bool CheckForValue(FaceitFaction? faction, string steamId)
@@ -250,7 +216,9 @@ public class FaceitService
             Phase = gsi.Map?.Phase,
             Round = gsi.Player?.State?.Health ?? 0,
             Activity = gsi.Player?.Activity,
-            Bomb = gsi.Round?.Bomb,
+            // Bevorzugt die dedizierte CS2 "bomb"-Komponente, faellt auf round.bomb zurueck
+            Bomb = gsi.Bomb?.State ?? gsi.Round?.Bomb,
+            BombCountdown = ParseDouble(gsi.Bomb?.Countdown),
             MySteamId = gsi.Provider?.SteamId,
             PlayerSteamId = gsi.Player?.SteamId,
             GameState = 1,
@@ -279,11 +247,20 @@ public class FaceitService
             Player20Kills = player?.Player20Kills ?? 0,
             Player20Hs = player?.Player20Hs ?? 0,
             Player20Kd = player?.Player20Kd,
-            Player20Kr = player?.Player20Kr
+            Player20Kr = player?.Player20Kr,
+            Last5Results = player?.Last5Results
         };
     }
 
     private OverlayState ReturnEmpty() => new OverlayState { GameState = 0 };
+
+    private static double? ParseDouble(string? value)
+    {
+        return double.TryParse(value, System.Globalization.NumberStyles.Any,
+            System.Globalization.CultureInfo.InvariantCulture, out var result)
+            ? result
+            : null;
+    }
 
     private class FaceitPlayerInfo
     {
@@ -300,6 +277,7 @@ public class FaceitService
         public int Player20Hs { get; set; }
         public string? Player20Kd { get; set; }
         public string? Player20Kr { get; set; }
+        public List<bool>? Last5Results { get; set; }
     }
 
     private class TeamInfo

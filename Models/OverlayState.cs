@@ -6,6 +6,7 @@ public class OverlayState
     public int Round { get; set; }
     public string? Activity { get; set; }
     public string? Bomb { get; set; }
+    public double? BombCountdown { get; set; }
     public string? MySteamId { get; set; }
     public string? PlayerSteamId { get; set; }
     public int GameState { get; set; }
@@ -36,4 +37,7 @@ public class OverlayState
     public int Player20Hs { get; set; }
     public string? Player20Kd { get; set; }
     public string? Player20Kr { get; set; }
+
+    // Letzte 5 Spiele: true = gewonnen, false = verloren (neuestes zuerst)
+    public List<bool>? Last5Results { get; set; }
 }

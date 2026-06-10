@@ -8,7 +8,17 @@ public class GsiPayload
     public Map? Map { get; set; }
     public Player? Player { get; set; }
     public Round? Round { get; set; }
+    public Bomb? Bomb { get; set; }
     public Auth? Auth { get; set; }
+}
+
+public class Bomb
+{
+    // CS2-spezifische "bomb"-Komponente: state z.B. "planted", "exploded", "defused", "defusing"
+    public string? State { get; set; }
+
+    // Verbleibende Sekunden als String, z.B. "37.512" – nur waehrend "planted" vorhanden
+    public string? Countdown { get; set; }
 }
 
 public class Provider

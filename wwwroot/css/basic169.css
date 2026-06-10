@@ -1,508 +1,503 @@
-.countdown{      
+/*
+   Radar Overlay redesign
+   Drop-in replacement for the original stylesheet. It keeps the existing
+   Razor markup/classes intact and only modernizes the visual layer.
+*/
+
+:root {
+    --surface: rgba(12, 15, 20, 0.90);
+    --surface-soft: rgba(255, 255, 255, 0.055);
+    --surface-card: rgba(255, 255, 255, 0.075);
+    --surface-line: rgba(255, 255, 255, 0.13);
+    --text: #f4f7fb;
+    --text-muted: #aab4c3;
+    --accent: #ff8a22;
+    --accent-soft: rgba(255, 138, 34, 0.18);
+    --danger: #ff3b3b;
+    --danger-soft: #6e1010;
+    --success: #35e074;
+    --success-soft: rgba(53, 224, 116, 0.22);
+    --shadow: 0 18px 45px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+* { box-sizing: border-box; }
+
+.countdown {
     display: none;
     position: absolute;
-    width: 0px;
-    margin-top: 2px;
-    margin-left:-6px;
+    width: 0;
+    margin-top:2px;margin-left:-6px;
 }
 
-.countdown.ongoing{
-    display: block;
-}
+.countdown.ongoing { display: block; }
 
 .bombsvg {
-	position: absolute;
-	top: 128.5px;
-	left: 136px;
-	width: 40px;
-	height: 40px;
-	transform: scale(-7.3,7.3) rotateY(-180deg) rotateZ(-90deg);
+    position: absolute;
+    top:128.5px;left:136px;transform:scale(-7.3,7.3) rotateY(-180deg) rotateZ(-90deg);
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 0 9px rgba(255, 59, 59, .85));
 }
 
-.countdown.ongoing .bombsvg circle{
-    stroke: #ff0000;
-    animation: countdown 40s linear forwards;
-}
-
-.countdown.ongoing.green .bombsvg circle{
-    stroke: green;
-    animation: countdow 1s linear forwards;
-}
-
-.bombsvg circle{
+.bombsvg circle {
     stroke-dasharray: 113px;
     stroke-dashoffset: 0px;
     stroke-linecap: round;
-    stroke-width: 0.8px;
+    stroke-width: .8px;
     fill: none;
 }
 
-.countdown.ongoing .squarebomb{
-    background: linear-gradient(to right, #5a0000 99.99%, transparent), linear-gradient(to bottom, #5a0000 99.99%, transparent), linear-gradient(to right, #5a0000 99.99%, transparent), linear-gradient(to bottom, #b76e02 99.99%, transparent);   
-    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
-    background-repeat: no-repeat;
-    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;    
-    animation: progress 40s linear forwards;
+.countdown.ongoing .bombsvg circle {
+    stroke: var(--danger);
+    animation: countdown 40s linear forwards;
+    animation-delay: var(--bomb-delay, 0s);
 }
 
-.countdown.ongoing.green .squarebomb{
-    background: linear-gradient(to right, green 99.99%, transparent), linear-gradient(to bottom, green 99.99%, transparent), linear-gradient(to right, green 99.99%, transparent), linear-gradient(to bottom, green 99.99%, transparent);   
-    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
-    background-repeat: no-repeat;
-    background-position: -384px 0px, 379px -288px, 384px 284px, 0px 384px;      
-    animation: progres 1s linear forwards;
+.countdown.ongoing.green .bombsvg circle {
+    stroke: var(--success);
+    animation: countdow 1s linear forwards;
+    filter: drop-shadow(0 0 10px rgba(53,224,116,.9));
 }
 
 .squarebomb {
-    height: 294px;
-    width: 294px;
-    margin-left: 6.5px;
-    margin-top: 1px;
+    height:294px;width:294px;margin-left:6.5px;margin-top:1px;
 }
 
-.circle span{
-    font-size: 11px;
-    font-weight: 600;
+.countdown.ongoing .squarebomb {
+    background:
+        linear-gradient(to right, var(--danger) 99.99%, transparent),
+        linear-gradient(to bottom, var(--danger) 99.99%, transparent),
+        linear-gradient(to right, var(--danger) 99.99%, transparent),
+        linear-gradient(to bottom, #b76e02 99.99%, transparent);
+    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+    background-repeat: no-repeat;
+    background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px;
+    animation: progress 40s linear forwards;
+    animation-delay: var(--bomb-delay, 0s);
+    filter: drop-shadow(0 0 8px rgba(255, 59, 59, .55));
 }
 
-.square span{
-	font-size: 12px;
-    font-weight: 600;
+.countdown.ongoing.green .squarebomb {
+    background:
+        linear-gradient(to right, var(--success) 99.99%, transparent),
+        linear-gradient(to bottom, var(--success) 99.99%, transparent),
+        linear-gradient(to right, var(--success) 99.99%, transparent),
+        linear-gradient(to bottom, var(--success) 99.99%, transparent);
+    background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
+    background-repeat: no-repeat;
+    background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px;
+    animation: progres 1s linear forwards;
+    filter: drop-shadow(0 0 8px rgba(53, 224, 116, .55));
 }
 
-.main.circle{
-	z-index: 10;
-	position: relative;
-	width: 258px; 
-	height:258px; 
-	overflow: hidden;
-	background-color: #2b2b2b;
-	border-radius: 50%;
-    top: 21px;
-    left: 21px;
-    border: 3px solid black;
-	transition: border-radius 0.5s;
+.circle span { font-size: 11px; font-weight: 650; }
+.square span { font-size: 12px; font-weight: 650; }
+
+.main.circle,
+.main.square {
+    z-index: 10;
+    overflow: hidden;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 20% 10%, rgba(255,138,34,.18), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(53,224,116,.10), transparent 26%),
+        linear-gradient(145deg, rgba(24,28,36,.96), rgba(8,10,14,.94));
+    border: 3px solid rgba(255,255,255,.10);
+    box-shadow: var(--shadow);
+    transition: border-radius .5s, transform .25s ease, box-shadow .25s ease;
 }
 
+.main.circle {
+    position: relative;
+    width:258px;height:258px;top:21px;left:21px;border-radius:50%;
+}
 
 .main.square {
-	z-index: 10;
-	position: absolute;
-	width: 285px;
-	height: 285px;
-	border: 5px solid black;
-	overflow: hidden;
-	background-color: #2b2b2b;
-	top: 8px;
-	left: 6px;
-	transition: border-radius 0.5s;
+    position: absolute;
+    width:285px;height:285px;top:8px;left:6px;
+    border-radius: 22px;
 }
 
-.tablepage{    
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-	left: 0%;
-	color: #E2E2E2;
-	position: absolute;
+.main.circle::before,
+.main.square::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.12), transparent 34%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.024) 0 1px, transparent 1px 7px);
+    mix-blend-mode: screen;
 }
 
-.user{
-	display: flex;
+.main.circle::after,
+.main.square::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    z-index: 0;
+    pointer-events: none;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: inherit;
+}
+
+.tablepage {
+    width: 100%;
+    top:0;height:100%;
+    z-index: 1;
+    left: 0;
+    position: absolute;
+    color: var(--text);
+    display: grid;
+    align-items: stretch;
+    align-content: stretch;
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    letter-spacing: .01em;
+    line-height: 1.1;
+}
+
+.userprofile,
+.tablepage > div:first-child {
+    border-bottom: 1px solid var(--surface-line);
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+}
+
+.user {
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding-top: 10px;
+    padding-top: 5px;
+    gap: 7px;
 }
 
 img#profilepicture {
     display: block;
     width: 9.5%;
+    aspect-ratio: 1;
+    object-fit: cover;
     border-radius: 50%;
-	padding-right: 8px;
+    padding-right: 0;
+    border: 1px solid rgba(255,255,255,.28);
+    box-shadow: 0 0 0 3px rgba(255,138,34,.12), 0 7px 16px rgba(0,0,0,.35);
 }
 
-span#username{
+span#username {
     vertical-align: middle;
-	font-size: 14px;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--text);
+    text-shadow: 0 1px 8px rgba(0,0,0,.55);
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.faceitGeneral{
-	display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: row;
-}
-
-.flag{
-	display: block;
-    width: 7.5%;
-}
-
-.Elo{
-    vertical-align: middle;
-}
-
-.skill{
-	display: block;
-    width: 7.5%;
-}
-
-.FaceitWins{
+.faceitGeneral,
+.FaceitWins,
+.RoomName,
+.RoomElo,
+.PlusMinus {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
     align-items: center;
-    border-bottom: 1px solid #969696;
-    padding-bottom: 10px;
 }
 
+.faceitGeneral {
+    justify-content: center;
+    gap: 11px;
+    padding: 1px 10px 2px;
+}
+
+.flag,
+.skill {
+    display: block;
+    width: 7.5%;
+    min-width: 16px;
+    max-width: 26px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.45));
+}
+
+.Elo,
 .wins {
     vertical-align: middle;
+    font-weight: 750;
 }
 
-.FaceitRoomStats{
-	display: grid;
+.Elo {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid rgba(255,138,34,.28);
+    border-radius: 999px;
+    padding: 2px 8px;
+}
+
+.FaceitWins {
+    justify-content: space-evenly;
+    gap: 8px;
+    padding: 0 9px 3px;
+    color: var(--text-muted);
+}
+
+.FaceitWins .wins {
+    min-width: 0;
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.075);
+}
+
+.FaceitWins .wins span[id] { color: var(--text); }
+
+.FaceitRoomStats,
+.MMRoomStats {
+    display: grid;
     text-align: center;
     vertical-align: middle;
-    border-bottom: 1px solid #969696;
-    padding-bottom: 10px;
-    padding-top: 5px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--surface-line);
+    padding: 2px 8px 3px;
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(0,0,0,.04));
+    gap: 2px;
 }
 
-.MMRoomStats{
-	display: grid;
-    text-align: center;
+.MMRoomStats { color: var(--text-muted); }
+
+.RoomHeadline,
+.MatchStatsHeadline {
     vertical-align: middle;
-    border-bottom: 1px solid #969696;
-    padding-bottom: 10px;
-    padding-top: 5px;
-	
-}
-
-.RoomHeadline{
-	vertical-align: middle;
-    font-weight: bold;
+    font-weight: 900;
     text-align: center;
-    text-decoration-line: underline;
+    text-decoration: none;
+    letter-spacing: .075em;
+    text-transform: uppercase;
+    color: var(--accent);
     font-size: 10px;
+    font-weight: unset;
 }
 
-.RoomName{
-	display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-}
+.RoomName { justify-content: space-evenly; color: var(--text); }
+.RoomElo { justify-content: space-evenly; color: var(--text-muted); }
+.TeamName { width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.TeamElo { width: 90px; }
 
-.TeamName{	
-	width: 90px;
-}
+span#plusElo { color: var(--success); }
+span#minusElo { color: var(--danger); }
 
-.RoomElo{
-	display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.TeamElo{
-	width: 90px;
-}
-
-span#plusElo{
-	color: green;
-}
-
-.PlusMinus{
-	display: flex;
+.PlusMinus {
     justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    align-content: center;
+    gap: 3px;
+    padding: 1px 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
 }
 
-span#minusElo{
-	color: red;
-}
-
-.arrowImg{
-	position: relative;
+.arrowImg {
+    position: relative;
     height: 10px;
+    opacity: .85;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,.5));
 }
 
-.MatchStatsHeadline{
-	font-size: 10px;
-    vertical-align: middle;
-    text-align: center;
-    text-decoration-line: underline;
-}
-
-.square .MatchStatsHeadline{
-	font-size: 12px;
-}
-
-.tableText{
-	text-align: center;
-    font-size: 9px!important;
-    font-weight: normal;
-}
-
-.square .tableText{
-    font-size: 10px!important;
-    font-weight: normal;
-}
-
-.deathSkull{
-	display: block;
-	width: 9px;
-	height: 10px;
-}
-
-.deathSkull.hidden{
-	display: none!important;
-}
-
-
-.progress {
-	grid-area: KD-Bar;
-	position: relative;
-	height: 8px;
-	width: 100%;
-	max-width: 100%;
-	margin-bottom: 0 !important;
-}
-
-.bg-danger {
-	background-color: #2d2d2d !important;
-}
-
-.bg-success {
-	background-color: #848484 !important;
-}
-
-.clearfix:before,
-.clearfix:after {
-	content: " ";
-	display: table;
-}
-
-.clearfix:after {
-	clear: both;
-}
-
-.clearfix {
-	*zoom: 1;
-}
-
-.visible {
-	visibility: visible!important;
-	opacity: 1;
-	transition: opacity 2s linear;
-}
-
-.hidden {
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0s 2s, opacity 2s linear;
-}
-
-.collapse {
-	visibility: collapse;
-	opacity: 0;
-	transition: visibility 0s 2s, opacity 2s linear;
-    display: none;
-}
-
-/* Basisfunktionalität des Sliders */
 .slider {
-    padding-top: 5px;
-	overflow: hidden;
+    padding-top: 3px;
+    overflow: hidden;
+    left:0;
+    position: relative;
 }
 
 .slideList {
-	width: 200%; /* Anzahl der Slides mal 100 */
-	position: relative; /* über die relative Positionierung wird der Slider durchs Sichtfenster geschoben */
-	-webkit-transition: left 2s;
-	-moz-transition: left 2s;
-	-o-transition: left 2s;
-	transition: left 2s; /* für den fließenden Schub */
-	margin: 0;
-	padding: 0;
+    width: 300%;
+    position: relative;
+    transition: left 2s;
+    margin: 0;
+    padding: 0;
+    animation-name: slider;
+    animation-duration: 30s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    overflow: hidden;
 }
 
 .slideList:after {
-	content: ".";
-	display: block;
-	height: .1px;
-	clear: both;
-	visibility: hidden;
-	font-size: 0;
-	overflow: hidden;
-}
-
-.slide {	
-    padding-left: 7%;
-    padding-right: 7%;
-	list-style: none;
-	width: 50%; /* Breite gleich 100 / Anzahl Slides */
-	float: left;
-	position: relative;
-	overflow: hidden;
-	left: 0;
-	-webkit-transition: left 0s .5s;
-	-moz-transition: left 0s .5s;
-	-o-transition: left 0s .5s;
-	transition: left 0s .5s; /*bei Klick auf ein Control werden alle Slides wieder auf Original-Position geschoben, hier für den ersten relevant. Damit die Aktion erst nach der slides-Verschiebung beginnt, kommt ein delay hinzu*/
-}
-
-@keyframes slider {
-	0%, 40% {left: 0;}
-	50%, 90% {left: -100%;}
-	100% {left: 0%;}
-}
-
-.slideList {
-	animation-name: slider;
-	animation-duration: 20s;
-	animation-delay: 2s;
-	animation-iteration-count: infinite;
-	overflow: hidden;
+    content: ".";
+    display: block;
+    height: .1px;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    overflow: hidden;
 }
 
 .slide {
-	position: relative;
+    list-style: none;
+    width: 33.3333%;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    left: 0;
+    padding-left: 7%;
+    padding-right: 7%;
+    transition: left 0s .5s;
 }
 
+.slide table {
+    border-collapse: separate;
+    border-spacing: 0 1px;
+}
+
+.square .MatchStatsHeadline { font-size: 12px; }
+
+.tableText {
+    text-align: center;
+    font-size: 9px !important;
+    font-weight: 650 !important;
+    color: var(--text-muted);
+}
+
+.tableText span,
+span.tableText[id] {
+    color: var(--text) !important;
+    font-weight: 850 !important;
+}
+
+.square .tableText { font-size: 10px !important; }
+
+.progress {
+    grid-area: KD-Bar;
+    position: relative;
+    height: 9px;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0 !important;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.bg-danger {
+    background: linear-gradient(90deg, rgba(255,59,59,.24), rgba(255,255,255,.08)) !important;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.bg-success {
+    background: linear-gradient(90deg, var(--success), var(--accent)) !important;
+    box-shadow: 0 0 10px rgba(255,138,34,.35);
+}
+
+.deaths { padding-top: 7px; }
+
+.deathSkull {
+    display: block;
+    width: 13px;
+    height: 13px;
+    margin: 0 4px;
+    filter: drop-shadow(0 0 7px rgba(255,59,59,.6));
+}
+
+.deathSkull.hidden { display: none !important; }
+
+.last5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding-top: 3px;
+}
+
+.resultBox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: 900;
+    color: #061008;
+    box-shadow: 0 6px 12px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.34);
+}
+
+.resultBox.win { background: linear-gradient(135deg, #78ff9e, var(--success)); }
+.resultBox.loss { background: linear-gradient(135deg, #ff8a8a, var(--danger)); color: #220303; }
 
 .loader {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-} 
-
-.loader .b{
-	border-radius: 50%;
-	border-left: 3px solid;
-	border-right: 3px solid;
-	border-top: 3px solid transparent !important;
-	border-bottom: 3px solid transparent !important;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%,-50%);
-	animation: ro 2s infinite;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 
-.loader .b1{
-	height: 50px;
-	width: 50px;
-	border-color: #535353;
-}
-.loader .b2{
-	height: 40px;
-	width: 40px;
-	border-color: #7e7e7e;
-	animation-delay: 0.2s;
-}
-
-.loader .b3{
-	height: 30px;
-	width: 30px;
-	border-color: #cdcdcd;
-	animation-delay: 0.4s;
+.loader .b {
+    border-radius: 50%;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-top: 3px solid transparent !important;
+    border-bottom: 3px solid transparent !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    animation: ro 2s infinite;
+    filter: drop-shadow(0 0 8px currentColor);
 }
 
-.loader .b4{
-	height: 20px;
-	width: 20px;
-	border-color: #ffffff;
-	animation-delay: 0.6s;
-} 
+.loader .b1 { height: 50px; width: 50px; border-color: rgba(255,138,34,.95); }
+.loader .b2 { height: 40px; width: 40px; border-color: rgba(255,255,255,.75); animation-delay: .2s; }
+.loader .b3 { height: 30px; width: 30px; border-color: rgba(53,224,116,.85); animation-delay: .4s; }
+.loader .b4 { height: 20px; width: 20px; border-color: rgba(255,255,255,.95); animation-delay: .6s; }
 
+.visible { visibility: visible !important; opacity: 1; transition: opacity 2s linear; }
+.hidden { visibility: hidden; opacity: 0; transition: visibility 0s 2s, opacity 2s linear; }
+.collapse { visibility: collapse; opacity: 0; transition: visibility 0s 2s, opacity 2s linear; display: none; }
 
-@keyframes ro{
-	0%{
-		transform: translate(-50%,-50%) rotate(0deg);
-	}
-	50%{
-		transform: translate(-50%,-50%) rotate(-180deg);
-	}
-	100%{
-		transform: translate(-50%,-50%) rotate(0deg);
-	}
+.clearfix:before,
+.clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+@keyframes slider {
+    0%, 27% { left: 0; }
+    33%, 60% { left: -100%; }
+    66%, 93% { left: -200%; }
+    100% { left: 0%; }
 }
 
+@keyframes ro {
+    0% { transform: translate(-50%,-50%) rotate(0deg); }
+    50% { transform: translate(-50%,-50%) rotate(-180deg); }
+    100% { transform: translate(-50%,-50%) rotate(0deg); }
+}
 
 @keyframes countdown {
-  from {
-    stroke-dashoffset: 113px;
-  }
-  0%{
-    stroke: #5a0000;
-  }
-  74.9%{
-    stroke: #5a0000;
-  }
-  75%{  
-    stroke: #eb6429;
-  }
-  87.4%{  
-    stroke: #eb6429;
-  }
-  87.5%{  
-    stroke: #ff0000;
-  }
-  to {
-    stroke-dashoffset: 0px;
-  }
+    from { stroke-dashoffset: 113px; }
+    0%, 74.9% { stroke: var(--danger-soft); }
+    75%, 87.4% { stroke: #eb6429; }
+    87.5%, 100% { stroke: var(--danger); }
+    to { stroke-dashoffset: 0px; }
 }
 
 @keyframes countdow {
-  from {
-    stroke-dashoffset: 113px;
-  }
-  to {
-    stroke-dashoffset: 0px;
-  }
+    from { stroke-dashoffset: 113px; }
+    to { stroke-dashoffset: 0px; }
 }
 
 @keyframes progress {
-  0% {
-    background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px;
-  }
-  25% {
-    background-position: 0px 0px, 290px -295px, 295px 290px, 0px 295px;
-  }
-  50% {
-    background-position: 0px 0px, 290px 0px, 295px 290px, 0px 295px;
-  }
-  75% {
-    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 295px;
-  }
-  100% {
-    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 0px;
-  }
+    0% { background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px; }
+    25% { background-position: 0px 0px, 290px -295px, 295px 290px, 0px 295px; }
+    50% { background-position: 0px 0px, 290px 0px, 295px 290px, 0px 295px; }
+    75% { background-position: 0px 0px, 290px 0px, 0px 290px, 0px 295px; }
+    100% { background-position: 0px 0px, 290px 0px, 0px 290px, 0px 0px; }
 }
 
-
 @keyframes progres {
-  0% {
-    background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px;
-  }
-  25% {
-    background-position: 0px 0px, 290px -295px, 295px 290px, 0px 295px;
-  }
-  50% {
-    background-position: 0px 0px, 290px 0px, 295px 290px, 0px 295px;
-  }
-  75% {
-    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 295px;
-  }
-  100% {
-    background-position: 0px 0px, 290px 0px, 0px 290px, 0px 0px;
-  }
+    0% { background-position: -295px 0px, 290px -295px, 290px 290px, 0px 290px; }
+    25% { background-position: 0px 0px, 290px -295px, 295px 290px, 0px 295px; }
+    50% { background-position: 0px 0px, 290px 0px, 295px 290px, 0px 295px; }
+    75% { background-position: 0px 0px, 290px 0px, 0px 290px, 0px 295px; }
+    100% { background-position: 0px 0px, 290px 0px, 0px 290px, 0px 0px; }
 }
