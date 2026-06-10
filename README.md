@@ -2,8 +2,9 @@
 RadarOverlay displays live CS2 and Faceit data as a browser overlay for OBS. The application includes a setup page where you can store your Faceit token, configure CS2 Game State Integration, and copy the correct OBS URLs directly.
 
 # Preview
-[https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3.png]("https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3.png")
-[https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3_dead.png]("https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3_dead.png")
+
+![https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3.png]("https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3.png")
+![https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3_dead.png]("https://github.com/Dietze1595/CS2-HLTV-Radaroverlay/blob/master/images/4_3_dead.png")
 
 ## Using the Release Build
 
